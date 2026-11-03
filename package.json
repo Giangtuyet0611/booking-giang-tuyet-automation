@@ -1,0 +1,31 @@
+{
+  "name": "saga-booking-automation",
+  "version": "1.0.0",
+  "description": "Hệ thống tự động hóa quy trình Booking KOC Saga (Docs - Sheets - Drive - Gmail)",
+  "main": "dist/Code.js",
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --outfile=dist/Code.js --format=iife --target=es2020",
+    "typecheck": "tsc --noEmit",
+    "push": "npm run build && clasp push",
+    "watch": "esbuild src/index.ts --bundle --outfile=dist/Code.js --format=iife --watch"
+  },
+  "keywords": [
+    "saga",
+    "koc-booking",
+    "google-apps-script",
+    "automation",
+    "typescript"
+  ],
+  "author": "Saga Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@google/clasp": "^2.4.2",
+    "@types/google-apps-script": "^1.0.89",
+    "@types/node": "^22.10.2",
+    "esbuild": "^0.24.2",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "googleapis": "^188.0.0"
+  }
+}

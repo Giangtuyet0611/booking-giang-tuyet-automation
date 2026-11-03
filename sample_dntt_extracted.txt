@@ -1,0 +1,32 @@
+
+
+[TABLE]
+| CÔNG TY TNHH HẢI TRIỀU VIỆT NAM | Số chứng từ: | 
+| Địa chỉ  : 50/22 Gò Dầu, Phường Tân Quý, Quận Tân Phú, TP. HCM Mã số thuế: 0315667679 | Bộ Phận: Văn phòng | 
+[END TABLE]
+
+PHIẾU ĐỀ NGHỊ THANH TOÁN
+(Ngày: 21/10/2026)
+Người nhận tiền: Nguyễn Thị Thảo Hương 
+Đơn vị nhận tiền: Việt Nam Đồng
+Số TK – Tên NH nhận tiền: 106828683333 - Ngân hàng Thương mại Cổ phần Công Thương Việt Nam (VietinBank) - Chi nhánh 2 TP.HCM
+Số tiền: 4.000.000 VNĐ	Ngày thanh toán: từ 22/10/2026 - 28/10/2026
+Diễn giải: Chi phí booking KOC quay/chụp sản phẩm đồng hồ
+Bộ phận/Cửa hàng:		 Mã BP/cửa hàng: 
+
+
+[TABLE]
+| STT | Diễn giải | Số tiền | Số hóa đơn VAT | Ghi chú | 
+| 1 | Chi phí booking KOC quay/chụp sản phẩm đồng hồ | 4.000.000 VNĐ |  | Chi phí sử dụng cho Đồng Hồ | 
+|  | Tổng cộng | 4.000.000 VNĐ |  |  | 
+| Trưởng bộ phận vui lòng xác nhận các chi phí không hóa đơn như sau: |  |  |  |  | 
+| Các số STT không hóa đơn (kèm nguyên nhân): |  |  |  | Trưởng BP Ký tên | 
+[END TABLE]
+*Các khoản chi phải có đầy đủ hóa đơn VAT hợp lệ.
+* Kế toán có quyền từ chối thanh toán đối với các khoản chi không có hóa đơn hợp lệ trong trường hợp người đề nghị thanh toán có khả năng yêu cầu nhà cung cấp xuất hóa đơn nhưng không chủ động thực hiện việc yêu cầu và cung cấp hóa đơn theo quy định
+
+
+[TABLE]
+| Người đề nghị | NgNgười nhận tiền | Trưởng Bộ Phận | Kế toán | Thủ quỹ | Giám Đốc | 
+[END TABLE]
+

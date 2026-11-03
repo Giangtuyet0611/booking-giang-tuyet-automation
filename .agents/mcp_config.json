@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "google-drive": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\ADmin\\AppData\\Local\\npm-cache\\_npx\\901beb8b1a496dd2\\node_modules\\@modelcontextprotocol\\server-gdrive\\dist\\index.js"
+      ],
+      "env": {
+        "GDRIVE_OAUTH_PATH": "d:\\Booking\\gcp-oauth.keys.json",
+        "GDRIVE_CREDENTIALS_PATH": "d:\\Booking\\.gdrive-server-credentials.json"
+      }
+    }
+  }
+}
