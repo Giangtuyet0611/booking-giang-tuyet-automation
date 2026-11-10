@@ -128,13 +128,50 @@ async function generateSplittedContracts(params) {
   }
 
   const createdDocs = [];
+  let contractOrderIndex = 0;
+
+  // Giãn cách ngày ký các hợp đồng +-3 ngày so với ngày yêu cầu nếu có nhiều HĐ
+  function calculateContractDate(baseDateStr, index, total) {
+    if (total <= 1) {
+      const parts = baseDateStr.split('-');
+      return {
+        iso: baseDateStr,
+        year: parts[0] || '2026',
+        month: parts[1] || '10',
+        day: parts[2] || '26'
+      };
+    }
+    let offset = 0;
+    if (total === 2) {
+      offset = index === 0 ? 0 : 2;
+    } else if (total === 3) {
+      offset = [-2, 0, 2][index] !== undefined ? [-2, 0, 2][index] : (index * 2 - 2);
+    } else {
+      const step = 6 / (total - 1);
+      offset = Math.round(-3 + index * step);
+    }
+    const [y, m, d] = baseDateStr.split('-').map(Number);
+    const dt = new Date(y, m - 1, d + offset);
+    const yyyy = String(dt.getFullYear());
+    const mm = String(dt.getMonth() + 1).padStart(2, '0');
+    const dd = String(dt.getDate()).padStart(2, '0');
+    return {
+      iso: `${yyyy}-${mm}-${dd}`,
+      year: yyyy,
+      month: mm,
+      day: dd
+    };
+  }
 
   // =========================================================================
   // 4. TẠO HỢP ĐỒNG THƯƠNG MẠI (TRẢ CAST) NẾU CÓ
   // =========================================================================
   if (hasCast) {
-    const castDocTitle = `${bookingDate} - ${kocDisplayName} - [Booking KOC/KOL] Hợp đồng Thương mại (Trả cast) - Đồng Hồ Hải Triều`;
-    console.log(`   + Đang tạo HĐ Thương mại (Trả cast): ${castDocTitle}`);
+    const castDate = calculateContractDate(bookingDate, contractOrderIndex, totalContractsCount);
+    contractOrderIndex++;
+
+    const castDocTitle = `${castDate.iso} - ${kocDisplayName} - [Booking KOC/KOL] Hợp đồng Thương mại (Trả cast) - Đồng Hồ Hải Triều`;
+    console.log(`   + Đang tạo HĐ Thương mại (Trả cast): ${castDocTitle} (Ngày ký: ${castDate.iso})`);
 
     // Tải template docx và upload chuyển đổi thành Google Doc
     const templateStream = await drive.files.get({
@@ -186,7 +223,7 @@ async function generateSplittedContracts(params) {
     // Chuẩn bị các replacements cho Cast
     const castRequests = [
       // 1. Ngày ký chuẩn: "Hôm nay, ngày [DD] tháng [MM] năm [YYYY], tại TP. Hồ Chí Minh, chúng tôi gồm có:"
-      { replaceAllText: { containsText: { text: 'ngày 27 tháng 08 năm 2026', matchCase: false }, replaceText: `ngày ${dayStr} tháng ${monthStr} năm ${yearStr}` } },
+      { replaceAllText: { containsText: { text: 'ngày 27 tháng 08 năm 2026', matchCase: false }, replaceText: `ngày ${castDate.day} tháng ${castDate.month} năm ${castDate.year}` } },
       
       // 2. Thông tin Bên B
       { replaceAllText: { containsText: { text: 'HỘ KINH DOANH NGUYỄN PHƯƠNG DUNG', matchCase: false }, replaceText: `BÀ ${kocFullName}` } },
@@ -245,8 +282,11 @@ async function generateSplittedContracts(params) {
     const groupTotalVal = group.reduce((sum, p) => sum + Number(String(p.value || '0').replace(/[^0-9]/g, '')), 0);
     const pPrimary = group[0];
 
-    const giftDocTitle = `${bookingDate} - ${kocDisplayName} - [Booking KOC/KOL] Hợp đồng Trao đổi tặng sản phẩm - ${groupProductCodes} - Đồng Hồ Hải Triều`;
-    console.log(`   + Đang tạo HĐ Tặng SP nhóm ${i + 1} (${group.length} SP <= 20tr): ${giftDocTitle}`);
+    const giftDate = calculateContractDate(bookingDate, contractOrderIndex, totalContractsCount);
+    contractOrderIndex++;
+
+    const giftDocTitle = `${giftDate.iso} - ${kocDisplayName} - [Booking KOC/KOL] Hợp đồng Trao đổi tặng sản phẩm - Đồng Hồ Hải Triều`;
+    console.log(`   + Đang tạo HĐ Tặng SP nhóm ${i + 1} (${group.length} SP <= 20tr): ${giftDocTitle} (Ngày ký: ${giftDate.iso})`);
 
     const copyGiftRes = await drive.files.copy({
       fileId: templateGiftDocId,
@@ -277,7 +317,7 @@ async function generateSplittedContracts(params) {
         reupType: 'Reels, Story',
         duration: params.videoDuration || '60-90s',
         concept: params.concept || 'Review đồng hồ Saga',
-        airDate: params.postDate || `${dayStr}/${monthStr}/${yearStr}`
+        airDate: params.postDate || `${giftDate.day}/${giftDate.month}/${giftDate.year}`
       }
     ];
 
@@ -292,7 +332,7 @@ async function generateSplittedContracts(params) {
 
     const giftRequests = [
       // 1. Ngày ký
-      { replaceAllText: { containsText: { text: 'ngày 01 tháng 10 năm 2026', matchCase: false }, replaceText: `ngày ${dayStr} tháng ${monthStr} năm ${yearStr}` } },
+      { replaceAllText: { containsText: { text: 'ngày 01 tháng 10 năm 2026', matchCase: false }, replaceText: `ngày ${giftDate.day} tháng ${giftDate.month} năm ${giftDate.year}` } },
 
       // 2. Thông tin Bên B
       { replaceAllText: { containsText: { text: 'PHAN NGỌC VÂN ANH', matchCase: false }, replaceText: kocFullName } },
@@ -338,7 +378,7 @@ async function generateSplittedContracts(params) {
 
       // 8. Showroom nhận & ngày nhận
       { replaceAllText: { containsText: { text: '79 Lê Văn Việt, P.Hiệp Phú, Q.9, TP.Thủ Đức', matchCase: false }, replaceText: params.showroomAddress || params.showroom || 'Showroom 156 Trần Quang Khải, TP.HCM' } },
-      { replaceAllText: { containsText: { text: '04/10/2026', matchCase: false }, replaceText: params.pickupDate || `${dayStr}/${monthStr}/${yearStr}` } }
+      { replaceAllText: { containsText: { text: '04/10/2026', matchCase: false }, replaceText: params.pickupDate || `${giftDate.day}/${giftDate.month}/${giftDate.year}` } }
     ];
 
     // Nếu deal chỉ có 1 SOW item (không có photo post và video 2) -> dọn sạch các text thừa trong bảng Điều 1
@@ -347,7 +387,7 @@ async function generateSplittedContracts(params) {
         { replaceAllText: { containsText: { text: 'Photo Post', matchCase: false }, replaceText: '' } },
         { replaceAllText: { containsText: { text: '4-6 ảnh', matchCase: false }, replaceText: '' } },
         { replaceAllText: { containsText: { text: '14/10/2026- 15/10/2026', matchCase: false }, replaceText: '' } },
-        { replaceAllText: { containsText: { text: '14/10/2026', matchCase: false }, replaceText: sowItems[0].airDate || params.postDate || `${dayStr}/${monthStr}/${yearStr}` } },
+        { replaceAllText: { containsText: { text: '14/10/2026', matchCase: false }, replaceText: sowItems[0].airDate || params.postDate || `${giftDate.day}/${giftDate.month}/${giftDate.year}` } },
         { replaceAllText: { containsText: { text: '16/10/2026', matchCase: false }, replaceText: '' } }
       );
     }

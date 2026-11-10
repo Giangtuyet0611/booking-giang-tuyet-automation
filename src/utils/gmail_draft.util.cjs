@@ -12,12 +12,12 @@ function getGmailClient() {
 }
 
 function makeRawEmail({ to, cc, subject, htmlBody }) {
-  const toStr = Array.isArray(to) ? to.join(', ') : to;
+  const toStr = to ? (Array.isArray(to) ? to.join(', ') : to) : '';
   const ccStr = cc ? (Array.isArray(cc) ? cc.join(', ') : cc) : '';
 
   const utf8Subject = `=?utf-8?B?${Buffer.from(subject).toString('base64')}?=`;
   const messageParts = [
-    `To: ${toStr}`,
+    ...(toStr ? [`To: ${toStr}`] : []),
     ...(ccStr ? [`Cc: ${ccStr}`] : []),
     'Content-Type: text/html; charset=utf-8',
     'MIME-Version: 1.0',

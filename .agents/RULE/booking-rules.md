@@ -6,7 +6,7 @@ Tài liệu này định nghĩa 11 nguyên tắc vận hành cốt lõi, bất b
 
 ### 1. LỆNH KÍCH HOẠT
 - **"tiến hành"** (hoặc khi người dùng gửi mẫu thông tin KOC mới): Thực hiện bước **Làm hợp đồng** (bóc tách deal, kiểm tra split HĐ Cast / HĐ Tặng SP, định dạng SOW, bảng chi phí thuế TNCN, tạo thư mục KOC và sinh các tài liệu hợp đồng).
-- **"thực thi 1"**: Thực hiện bước **Thực thi 1** (quét trạng thái Google Docs mới nhất, tra cứu email showroom, tạo Thư nháp trong Gmail, sinh Phiếu ĐNTT giá trị Net, ghi dòng MỚI vào Sheet `CSC - Saga`).
+- **"thực thi 1"**: Thực hiện bước **Thực thi 1** (quét trạng thái Google Docs mới nhất, tra cứu email showroom, tạo Thư nháp trong Gmail, sinh Phiếu ĐNTT giá trị Net, cập nhật trạng thái chốt deal trên Sheet Data KOC, xem Mục 3.1).
 
 ---
 
@@ -17,11 +17,50 @@ Tài liệu này định nghĩa 11 nguyên tắc vận hành cốt lõi, bất b
 
 ---
 
-### 3. GHI NHẬN GOOGLE SHEET
-- Khi ghi nhận dữ liệu vào Sheet `[0] Tổng hợp report & materials KOL/KOC` (Spreadsheet ID: `1ShViO4aj-nHXS8-OTmYd56Y-KzImHSvpgHE7DqPgCO0`), tại tất cả các Tab (`CSC - Saga`, `SL materials - Saga v1`, `2 SL post & ĐTT - Saga`):
-  - **CHỈ GHI MỚI**: Luôn tìm dòng trống đầu tiên sau dòng có dữ liệu cuối cùng để ghi dữ liệu mới.
-  - **TUYỆT ĐỐI KHÔNG GHI ĐÈ** lên bất kỳ dòng nào đã có sẵn dữ liệu của các KOC trước đó.
+### 3. GHI NHẬN GOOGLE SHEET (CƠ CHẾ MỚI - 2 SHEET DÙNG CHUNG CỦA TEAM)
+- **Ngừng ghi** vào Spreadsheet cũ `[0] Tổng hợp report & materials KOL/KOC` (ID `1ShViO4aj-nHXS8-OTmYd56Y-KzImHSvpgHE7DqPgCO0`) cùng 3 Tab `CSC - Saga`, `SL materials - Saga v1`, `2 SL post & ĐTT - Saga`. Mọi ghi nhận chuyển sang 2 Sheet bên dưới.
+- **NHẬN DIỆN CỘT THEO TÊN TIÊU ĐỀ, KHÔNG THEO VỊ TRÍ CỘT/DÒNG**: Team có thể đảo cột, thêm cột bất cứ lúc nào.
+  - Tự dò dòng tiêu đề mỗi lần chạy (dòng chứa các tên cột cần dùng), không mặc định là dòng 1.
+  - So khớp tên cột đã chuẩn hóa: bỏ xuống dòng/khoảng trắng thừa, không phân biệt hoa/thường, khớp theo phần đầu của tiêu đề (ví dụ `Tên kênh`, `Mã sản phẩm`).
+  - Nếu thiếu hoặc trùng tên cột bắt buộc: DỪNG, báo người dùng, không đoán cột.
+  - Không sửa các cột có công thức hoặc ghi chú `(Auto)`; không đụng cột ngoài danh sách bên dưới.
 
+#### 3.1. Sheet Data KOC - cập nhật trạng thái chốt deal
+- Spreadsheet: `1J7pUE_SV-ToO8jNuZZYktu8HsYhYVHVO5GjNwOWJolw`, Tab `Data KOC (11/2026)` (gid `280295617`). Tab theo tháng: tháng mới ưu tiên Tab `Data KOC (MM/YYYY)` mới nhất, nếu không chắc phải hỏi lại.
+- Spreadsheet: `1J7pUE_SV-ToO8jNuZZYktu8HsYhYVHVO5GjNwOWJolw`, Tab `Data KOC (11/2026)` (gid `280295617`). Tab theo tháng: sang tháng mới PHẢI hỏi lại người dùng dùng tab nào trước khi ghi (không tự chọn).
+- **Kích hoạt**: Khi người dùng gửi thông tin hợp đồng của KOC tên A.
+- **KHÔNG thêm dòng mới, chỉ CẬP NHẬT dòng đã có**:
+  1. Dò tên A ở cột `Tên kênh (Kênh chính booking, không trùng lặp)` (so khớp đã chuẩn hóa, bỏ dấu @, hoa/thường).
+  2. Chỉ cập nhật khi cột `Người phụ trách` của dòng đó đúng là người dùng. Nếu người phụ trách khác, không tìm thấy, hoặc trùng nhiều dòng: KHÔNG ghi, báo lại để người dùng quyết định.
+  2. Chỉ cập nhật khi cột `Người phụ trách` của dòng đó đúng là **người phụ trách hiện tại** (mặc định `Giáng Tuyết`; nếu người khác sử dụng và nhắn "tôi là [Tên]" thì áp dụng tên đó từ lúc đó đến khi họ báo đổi; nếu chưa rõ ai đang dùng thì phải hỏi trước khi ghi). Nếu người phụ trách khác, không tìm thấy, hoặc trùng nhiều dòng: KHÔNG ghi, báo lại để người dùng quyết định.
+  3. Khi khớp, điền các cột sau:
+     - `Trạng thái`: `Đã chốt`
+     - `Số sản phẩm tặng`: số lượng sản phẩm tặng
+     - `Mã sản phẩm`: các mã nối nhau bằng ` ; ` (có khoảng trắng trước và sau dấu chấm phẩy), ví dụ `54510-GPGRGP-2 ; 53578-LGCRCR-2`
+     - `Tổng chi phí sản phẩm`: tổng giá trị các sản phẩm tặng
+     - `Tổng cast`: chi phí cast **tiền mặt** (số Net thực nhận theo hợp đồng)
+- Ghi đè chỉ được phép trên các ô thuộc 5 cột trên của đúng dòng KOC A.
+
+#### 3.2. Sheet Report - báo cáo materials & post air
+- Spreadsheet: `1KiSpOuGezhePNSQDPx-xz-_KxfzRzltpR-gI1aQdD3I`, Tab `Report Saga` (gid `2134196678`).
+- **MỖI HÀNG LÀ 1 KÊNH**. Chỉ ghi vào dòng trống đầu tiên (cột `Tên kênh` rỗng), tuyệt đối không ghi đè dòng đã có dữ liệu.
+- Các cột cần điền: 
+  - `Ngày AIR`: ngày người dùng gửi link (`DD/MM/YYYY`), trừ khi có ghi chú ngày khác.
+  - `Liên hệ lần thứ` và `Tên kênh`: dò tên KOC ở Sheet Data KOC (mục 3.1) rồi đồng bộ y nguyên 2 giá trị này.
+  - `Liên hệ lần thứ` và `Tên kênh`: dò tên KOC ở Sheet Data KOC (mục 3.1) rồi đồng bộ y nguyên 2 giá trị này (ở Sheet Data KOC, `Liên hệ lần thứ` là số đếm tự động: chỉ đọc, không ghi; ở Sheet Report thì ghi trùng khớp).
+  - `Link UTM KOC`: người dùng gửi.
+  - `Materials`: link thành phẩm lấy từ bước Nhận Link Drive (Quy trình Media Materials).
+  - `Format`: định dạng của bài (ví dụ Video / Hình ảnh).
+  - `Thời gian SDHA`: theo hợp đồng (mặc định `Trọn đời` nếu hợp đồng nhắc SDHA mà không nêu thời hạn).
+  - `Kênh đăng`: bóc tách từ link người dùng gửi (Tiktok / Facebook / Instagram / Threads / Youtube).
+  - `Link post`: hyperlink bài đăng theo quy tắc nhãn bên dưới.
+- Các cột đã có công thức tự động (`Ngày BOOK`, `Người phụ trách`, `Tên KOC / Nghệ danh`, `Tệp / nhóm KOC`, `Mã sản phẩm`, `Tổng chi phí sau deal`...) KHÔNG điền.
+- Các cột còn lại (`View 3D`, `CPM`, `Cảm xúc 7D`... và mọi cột công thức) giữ nguyên, không can thiệp. Nếu dòng trống đã có sẵn công thức thì bảo toàn.
+- **Nhãn hyperlink `Link post`** (công thức `=HYPERLINK("url", "nhãn")`):
+  - Facebook: chứa `reel`/`reels` → `Facebook Reels`; khác → `Facebook`.
+  - TikTok: chứa `/photo/` → `Tiktok Photo`; khác → `Tiktok`.
+  - Instagram: chứa `reel`/`reels` → `Instagram Reels`; chứa `/p/` hoặc `photo` → `Instagram`; khác → `Instagram Video`.
+- **Bỏ quy tắc gom FB + IG vào cùng 1 dòng**: mỗi kênh/link 1 hàng riêng; các hàng cùng KOC dùng chung `Liên hệ lần thứ`, `Tên kênh`, `Link UTM KOC`, `Materials`.
 ---
 
 ### 4. NỘI DUNG SOW TRONG HỢP ĐỒNG
@@ -73,9 +112,7 @@ Mọi sản phẩm đồng hồ khi đưa vào hợp đồng (Điều 2.1) hoặ
 ### 8. EMAIL XUẤT SẢN PHẨM & TỰ ĐỘNG TẠO GMAIL DRAFT
 - **Tiêu đề email chuẩn**: `Marketing - Xuất sản phẩm tặng KOC <tên KOC>`.
 - **Cơ sở dữ liệu cửa hàng**: Tra cứu tự động từ Google Sheet [Danh sách mail cửa hàng và người phụ trách](https://docs.google.com/spreadsheets/d/1G-S4EQ-HQHPMqdKk9V26yRVNQ_ZWn-dXezcZNogh-jY/edit?gid=0#gid=0) theo địa chỉ hoặc tên showroom nhận/chuyển.
-- **Quy định Người nhận (Recipients)**:
-  - **To**: Email showroom nhận hàng + `kimlien@donghohaitrieu.vn` + `kimngoc@donghohaitrieu.vn` (nếu có hàng xuất XNH).
-  - **Cc**: Email showroom chuyển (nếu có), leader/quản lý phụ trách showroom (BA/HM/SD), team hỗ trợ showroom (Amber/Pearl/Sapphire/Zircon...), PIC booking.
+- **Người nhận (Recipients)**: **KHÔNG điền người nhận** (để trống cả To và Cc). Người dùng sẽ tự điền To và Cc khi kiểm tra và gửi mail.
 - **Nguyên tắc phân bổ sản phẩm theo nguồn xuất**:
   - Từng mục nguồn (Kho XNH, Showroom chuyển) **CHỈ GHI ĐÚNG** sản phẩm của nguồn đó.
   - Riêng mục xuất tại showroom người nhận thì ghi **TẤT CẢ** các sản phẩm KOC nhận.
@@ -83,8 +120,14 @@ Mọi sản phẩm đồng hồ khi đưa vào hợp đồng (Điều 2.1) hoặ
 
 ---
 
-### 9. ĐỊNH DẠNG THỜI GIAN TÊN FILE (ISO YYYY-MM-DD)
-Tất cả các file được tạo ra trong hệ thống (Hợp đồng Thương mại, Hợp đồng Tặng sản phẩm, Phiếu đề nghị thanh toán, Biên bản...) đều **BẮT BUỘC đặt tên bắt đầu bằng `YYYY-MM-DD`** (ví dụ: `2026-10-28 - Minh Anh Daily - ...`, `2026-10-28 - Phiếu đề nghị thanh toán...`).
+### 9. ĐỊNH DẠNG TÊN FILE & THƯ MỤC (ISO YYYY-MM-DD)
+- Tất cả các file và thư mục được tạo ra trong hệ thống đều **BẮT BUỘC đặt tên bắt đầu bằng `YYYY-MM-DD`**:
+  - Thư mục KOC (khi $\ge$ 2 HĐ): `YYYY-MM-DD - [Tên KOC] - [Booking KOC/KOL] Hợp đồng tổng hợp - Đồng Hồ Hải Triều` (sử dụng ngày booking theo yêu cầu; tất cả các hợp đồng của KOC đều nằm trong thư mục tổng này).
+  - HĐ Thương mại: `YYYY-MM-DD - [Tên KOC] - [Booking KOC/KOL] Hợp đồng Thương mại (Trả cast) - Đồng Hồ Hải Triều`
+  - HĐ Tặng SP: `YYYY-MM-DD - [Tên KOC] - [Booking KOC/KOL] Hợp đồng Trao đổi tặng sản phẩm - Đồng Hồ Hải Triều`
+    - **TUYỆT ĐỐI KHÔNG đưa mã sản phẩm vào tiêu đề hợp đồng**.
+    - **KHÔNG đánh số thứ tự (1), (2)...**: Nếu 1 bạn có nhiều hợp đồng, các hợp đồng sẽ được giãn cách ra các ngày ký khác nhau ($\pm 3$ ngày so với ngày yêu cầu tạo hợp đồng), do đó ngày tháng `YYYY-MM-DD` ở đầu tên file tự động phân biệt các hợp đồng mà không cần đánh số.
+  - Phiếu ĐNTT: `YYYY-MM-DD - Phiếu đề nghị thanh toán cast KOC [Tên KOC]` (hoặc đợt 1 / đợt 2 nếu chia đợt).
 
 ---
 
@@ -105,24 +148,6 @@ Tất cả các file được tạo ra trong hệ thống (Hợp đồng Thươn
 
 ---
 
-### 12. CẬP NHẬT BÁO CÁO POST AIR (TAB 3: SL POST & ĐTT - SAGA)
-- Khi KOC air bài và người dùng gửi link bài đăng kèm tên KOC:
-  - **Đối chiếu Tab `CSC - Saga`**: Trích xuất Cột C (`Ngày Book`), Cột B (`Người phụ trách`), Cột D (`Tên KOC`), Cột E (`Link SP UTM`), Cột F (`Giá trị SP`). Đảm bảo thông tin Cột A, C, D trên Tab 3 trùng khớp 100% với `CSC - Saga`.
-  - **Ngày Air (Cột B)**: Mặc định là ngày người dùng gửi link (`DD/MM/YYYY`) nếu không có ghi chú ngày cụ thể.
-  - **Quy tắc gán nhãn Hyperlink (Cột I & Cột R)**:
-    - **Facebook**:
-      - Chứa `reel` hoặc `reels`: Nhãn `Facebook Reels`.
-      - Các bài viết khác: Nhãn `Facebook`.
-    - **TikTok**:
-      - Chứa `/photo/`: Nhãn `Tiktok Photo`.
-      - Video / khác: Nhãn `Tiktok`.
-    - **Instagram**:
-      - Chứa `reel` hoặc `reels`: Nhãn `Instagram Reels`.
-      - Ảnh / post album (`/p/` hoặc `photo`): Nhãn `Instagram`.
-      - Video khác: Nhãn `Instagram Video`.
-  - **Phân loại kênh (Cột G)**: `Tiktok` cho Tiktok; `FB / IG` cho Facebook và Instagram; `Threads` cho Threads; `Youtube` cho Youtube.
-  - **Gom dòng cùng ngày cho FB & IG**:
-    - Nếu có cả link FB và IG cùng ngày air, ghi nhận trên cùng 1 dòng: Link 1 tại Cột I (`Link post 1`), Link 2 tại Cột R (`Link post 2`), Cột G là `FB / IG`.
-  - **Ghi dòng MỚI & bảo toàn công thức**:
-    - Luôn ghi vào dòng trống đầu tiên (cột D rỗng), tuyệt đối không ghi đè.
-    - Kế thừa và bảo toàn công thức tính tự động tại Cột H (`Tổng điểm tương tác`), Cột L (`Giá trị nhận diện đem lại post 1`), Cột U (`Giá trị nhận diện đem lại post 2`).
+### 12. CẬP NHẬT BÁO CÁO POST AIR (SHEET REPORT - `Report Saga`)
+- Khi KOC air bài và người dùng gửi link bài đăng kèm tên KOC, thực hiện đúng mục **3.2** (nhận diện cột theo tên, mỗi hàng 1 kênh, ghi vào dòng trống đầu tiên, không ghi đè).
+- Không còn đối chiếu Tab `CSC - Saga` cũ; thông tin KOC lấy từ Sheet Data KOC (mục 3.1).

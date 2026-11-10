@@ -143,10 +143,63 @@ Cảm ơn anh/chị và chúc anh/chị một ngày tốt lành!`);
 
   return {
     subject: `Marketing - Xuất sản phẩm KOC ${kocFullName}`,
-    body: unifiedBody,
-    to: `${targetShowroom} CH <showroom@donghohaitrieu.vn>`,
-    cc: `Kim Liên Liềng <kimlien@donghohaitrieu.vn>${(xnhProducts && xnhProducts.length > 0) ? ', Thị Kim Ngọc Trần <kimngoc@donghohaitrieu.vn>' : ''}`
+    body: unifiedBody
+    // Không đề xuất người nhận (To) và không Cc: người dùng tự điền khi gửi
   };
 }
 
-module.exports = { generateUnifiedDispatchEmail };
+/**
+ * Chuyển nội dung text của email sang HTML chuẩn Gmail:
+ * - Font serif, cỡ Lớn (Large)
+ * - In đậm các thông tin quan trọng: lời chào, sản phẩm xuất, tên KOC, showroom, ngày, SĐT, CCCD, "Lưu ý"
+ * - Không có người nhận (To/Cc) - người dùng tự điền khi gửi
+ */
+function escapeHtml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function renderEmailHtml(body, params = {}) {
+  let html = escapeHtml(body);
+
+  // 1. Các cụm cố định cần in đậm
+  const boldTerms = [
+    params.kocFullName && String(params.kocFullName).toUpperCase(),
+    params.kocFullName,
+    params.kocName,
+    params.targetShowroom,
+    params.kocPhone,
+    params.kocCccd,
+    params.pickupDate,
+    params.needDate
+  ];
+  (params.xnhProducts || []).forEach(p => boldTerms.push(p.name || p.code));
+  (params.giftProducts || []).forEach(p => boldTerms.push(p.name || p.code));
+  (params.transferShowrooms || []).forEach(ts => {
+    boldTerms.push(ts.sourceShowroom);
+    (ts.products || []).forEach(p => boldTerms.push(p.name || p.code));
+  });
+  if (params.borrowProduct) boldTerms.push(params.borrowProduct);
+
+  Array.from(new Set(boldTerms.filter(t => t && String(t).trim().length >= 3)))
+    .sort((a, b) => String(b).length - String(a).length)
+    .forEach(term => {
+      const esc = escapeHtml(term).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      html = html.replace(new RegExp(esc, 'g'), m => `<b>${m}</b>`);
+    });
+
+  // 2. Các nhãn / câu quan trọng theo dòng
+  html = html
+    .replace(/^(Dear [^\n]*?,)$/gm, '<b>$1</b>')
+    .replace(/^(Lưu ý:)/gm, '<b>$1</b>')
+    .replace(/(Ngày cửa hàng cần nhận được:)/g, '<b>$1</b>')
+    .replace(/(Thao tác xuất: Xuất giá 0 đồng)/g, '<b>$1</b>')
+    .replace(/(Thông tin xuất hóa đơn:)/g, '<b>$1</b>')
+    .replace(/(Sản phẩm xuất:)/g, '<b>$1</b>')
+    .replace(/(Số lượng:)/g, '<b>$1</b>')
+    .replace(/(Ngày mượn:|Ngày trả:)/g, '<b>$1</b>')
+    .replace(/(KOC đến cửa hàng và xuất trình Căn cước công dân gốc)/g, '<b>$1</b>');
+
+  return `<div style="font-family: 'Times New Roman', Times, serif; font-size: large; line-height: 1.5; color: #000;">\n${html.replace(/\n/g, '<br/>')}\n</div>`;
+}
+
+module.exports = { generateUnifiedDispatchEmail, renderEmailHtml };

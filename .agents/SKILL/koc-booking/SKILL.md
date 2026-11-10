@@ -14,9 +14,9 @@ Quy trình tự động hóa toàn diện dành cho nhân sự Marketing / Socia
 | Lệnh người dùng | Hành động của AI | Script thực thi tương ứng |
 | :--- | :--- | :--- |
 | **"tiến hành"** (hoặc gửi thông tin KOC mới) | Bóc tách deal, phân loại hợp đồng (Cast / Tặng SP), tạo thư mục KOC, nhân bản và điền thông tin hợp đồng chuẩn SOW độc lập, chuẩn thuế TNCN. | `src/action_contract.cjs` |
-| **"thực thi 1"** | Quét trạng thái Google Docs mới nhất, tra cứu email showroom từ Sheet cửa hàng, tự động tạo Thư nháp (Draft) trong Gmail, sinh Phiếu ĐNTT (giá trị Net), ghi dòng MỚI vào Sheet `CSC - Saga`. | `src/action_thucthi1.cjs` |
-| **Gửi Link Drive Media** (KOC trả bài) | Tạo thư mục KOC theo năm `2026`, tạo folder con `Video`/`Hình ảnh`, đổi tên file theo cú pháp chuẩn, ghi nhận Tab 2 `SL materials - Saga v1` bằng công thức `=XLOOKUP`. | `src/action_media.cjs` |
-| **Gửi Link Post Air** (Bài đã đăng) | Kiểm tra link bài đăng công khai, cập nhật dòng mới vào Tab 3 `2 SL post & ĐTT - Saga`. | `src/action_media.cjs` |
+| **"thực thi 1"** | Quét trạng thái Google Docs mới nhất, tra cứu email showroom từ Sheet cửa hàng, tự động tạo Thư nháp (Draft) trong Gmail, sinh Phiếu ĐNTT (giá trị Net), cập nhật trạng thái chốt deal trên Sheet Data KOC (mục 3.4). | `src/action_thucthi1.cjs` |
+| **Gửi Link Drive Media** (KOC trả bài) | Tạo thư mục KOC theo năm `2026`, tạo folder con `Video`/`Hình ảnh`, đổi tên file theo cú pháp chuẩn, ghi nhận vào Sheet Report (mục 4.2). | `src/action_media.cjs` |
+| **Gửi Link Post Air** (Bài đã đăng) | Kiểm tra link bài đăng công khai, cập nhật dòng mới vào Sheet Report (mục 4.2). | `src/action_media.cjs` |
 
 > [!IMPORTANT]
 > **Quy định tự động hóa sau Testing 1**: AI tự động thực hiện trọn gói toàn bộ quy trình, KHÔNG hỏi lại từng bước nhỏ. Nếu thông tin người dùng gửi bị thiếu thông tin bắt buộc (CCCD, SĐT, địa chỉ, showroom nhận, ngày nhận, SOW), AI chủ động nhắc người dùng bổ sung ngay.
@@ -72,9 +72,9 @@ Mỗi KOC có thể có nhiều quyền lợi (vừa có Cast, vừa được t�
 
 ### 2.5. Định Dạng Tên Thư Mục & File
 - Tất cả các file và thư mục tạo ra đều bắt đầu bằng **`YYYY-MM-DD`**:
-  - Thư mục KOC: `YYYY-MM-DD - [Tên KOC] - [Booking KOC/KOL] Hợp đồng tổng hợp - Đồng Hồ Hải Triều` (Lưu tại thư mục tháng tương ứng trong `117T7PVrbn48hc97-02JMj3K4ApYeSDPZ`).
+  - Thư mục KOC (nếu $\ge 2$ HĐ): `YYYY-MM-DD - [Tên KOC] - [Booking KOC/KOL] Hợp đồng tổng hợp - Đồng Hồ Hải Triều` (Lưu tại thư mục tháng tương ứng trong `117T7PVrbn48hc97-02JMj3K4ApYeSDPZ`).
   - HĐ Thương mại: `YYYY-MM-DD - [Tên KOC] - [Booking KOC/KOL] Hợp đồng Thương mại (Trả cast) - Đồng Hồ Hải Triều`
-  - HĐ Tặng SP: `YYYY-MM-DD - [Tên KOC] - [Booking KOC/KOL] Hợp đồng Trao đổi tặng sản phẩm - [Mã SP] - Đồng Hồ Hải Triều`
+  - HĐ Tặng SP: `YYYY-MM-DD - [Tên KOC] - [Booking KOC/KOL] Hợp đồng Trao đổi tặng sản phẩm - Đồng Hồ Hải Triều` (**Tuyệt đối KHÔNG đưa mã sản phẩm và KHÔNG đánh số (1), (2)**. Nếu $\ge 2$ HĐ thì giãn cách ngày ký $\pm 3$ ngày so với ngày yêu cầu để ngày `YYYY-MM-DD` tự phân biệt).
 
 ---
 
@@ -103,8 +103,8 @@ Khi người dùng nhắn **"thực thi 1"**, AI thực hiện tuần tự 4 tá
   - Ghi chú: Xuất trình CCCD gốc, xuất hóa đơn 0đ, kèm hộp BOM túi giấy không bảo hành mở rộng.
 - **Tự động tạo Thư nháp trong Gmail**: Dùng `src/utils/gmail_draft.util.cjs`:
   - **Tiêu đề email**: `Marketing - Xuất sản phẩm tặng KOC <tên KOC>`.
-  - **Người nhận (To)**: Email showroom nhận hàng, `kimlien@donghohaitrieu.vn`, `kimngoc@donghohaitrieu.vn` (nếu có hàng xuất XNH).
-  - **Đồng gửi (Cc)**: Email showroom chuyển (nếu có), leader/quản lý phụ trách showroom, team hỗ trợ showroom, PIC booking.
+  - **Định dạng**: font serif (Times New Roman), cỡ Lớn, in đậm thông tin quan trọng (`renderEmailHtml` trong `mail_template.cjs`).
+  - **Người nhận**: KHÔNG đề xuất To, KHÔNG Cc - người dùng tự điền khi gửi.
   - *Bản nháp xuất hiện ngay lập tức trong mục Drafts của hộp thư Gmail.*
 
 ### 3.3. Sinh Phiếu Đề Nghị Thanh Toán (Phiếu ĐNTT)
@@ -115,10 +115,18 @@ Khi người dùng nhắn **"thực thi 1"**, AI thực hiện tuần tự 4 tá
   - **Số tiền trên phiếu**: **CHỈ GHI GIÁ TRỊ THỰC NHẬN (NET)**, không ghi giá trị bao gồm thuế.
   - Nếu hợp đồng chia nhiều đợt thanh toán (ví dụ 50% duyệt kịch bản, 50% nghiệm thu), sinh phiếu ĐNTT tương ứng cho từng đợt với số tiền thực nhận của đợt đó.
 
-### 3.4. Ghi Dòng MỚI Vào Sheet `CSC - Saga` (Tab 1)
-- Truy cập Spreadsheet Tổng: `1ShViO4aj-nHXS8-OTmYd56Y-KzImHSvpgHE7DqPgCO0`, Tab `CSC - Saga`.
-- Quét cột D để tìm dòng có dữ liệu cuối cùng.
-- **CHỈ GHI MỚI, KHÔNG GHI ĐÈ**: Ghi thông tin booking KOC vào dòng trống tiếp theo. Cột A (STT) dùng công thức `=A[row-1]+1`.
+### 3.4. Cập Nhật Trạng Thái Chốt Deal Trên Sheet Data KOC (thay cho ghi dòng mới vào `CSC - Saga`)
+- **Ngừng ghi** vào Spreadsheet cũ (`1ShViO4aj-nHXS8-OTmYd56Y-KzImHSvpgHE7DqPgCO0`) và 3 Tab `CSC - Saga`, `SL materials - Saga v1`, `2 SL post & ĐTT - Saga`. Chuyển sang 2 Sheet chung bên dưới.
+- **Nhận diện cột theo TÊN tiêu đề, KHÔNG theo địa chỉ cột/dòng** (team có thể đảo/thêm cột): tự dò dòng tiêu đề, chuẩn hóa tên cột (bỏ xuống dòng, khoảng trắng, hoa/thường); thiếu hoặc trùng cột bắt buộc thì dừng và báo.
+- **Sheet Data KOC**: [link](https://docs.google.com/spreadsheets/d/1J7pUE_SV-ToO8jNuZZYktu8HsYhYVHVO5GjNwOWJolw/edit?gid=280295617#gid=280295617) (Tab `Data KOC (11/2026)`, gid `280295617`).
+- Khi tôi gửi thông tin hợp đồng KOC tên A: dò tên A ở cột `Tên kênh (Kênh chính booking, không trùng lặp)`.
+  - Chỉ cập nhật nếu cột `Người phụ trách` của dòng đó đúng là tôi; không tìm thấy / người phụ trách khác / trùng nhiều dòng thì KHÔNG ghi và báo lại.
+  - Không tạo dòng mới. Chỉ điền các cột sau của đúng dòng đó:
+    - `Trạng thái`: `Đã chốt`
+    - `Số sản phẩm tặng`
+    - `Mã sản phẩm`: nhiều sản phẩm cách nhau bởi dấu ; và khoảng trắng trước-sau, ví dụ `54510-GPGRGP-2 ; 53578-LGCRCR-2`
+    - `Tổng chi phí sản phẩm`
+    - `Tổng cast` (tiền mặt, số Net)
 
 ---
 
@@ -134,33 +142,75 @@ Khi KOC hoàn thành sản xuất và gửi link Google Drive chứa video/hình
   `KOC SAGA, TÊN KOC, tên sản phẩm, thể loại - tóm tắt nội dung video`
   *(Ví dụ: `KOC SAGA, Minh Anh Daily, Saga Stella Chance 53578-LGSVWH-2, Video storytelling - Tự thưởng đồng hồ đi tiệc cuối năm`)*.
 
-### 4.2. Ghi Nhận Vào Sheet `SL materials - Saga v1` (Tab 2, Cột A $\rightarrow$ J)
-- Truy cập Spreadsheet Tổng, Tab `SL materials - Saga v1`.
-- **CHỈ GHI MỚI**: Tìm dòng trống cuối cùng để append.
-- **Cột C (Họ và tên)**: Bắt buộc dùng công thức tự động liên kết:
-  `=XLOOKUP(B..., 'CSC - Saga'!D:D, 'CSC - Saga'!E:E, "")`
-- **Cột F (Tên thành phẩm)**: Gắn Hyperlink trỏ trực tiếp về file trên Drive với văn bản hiển thị là cụm *"thể loại - tóm tắt nội dung video"*.
-- **Cột K $\rightarrow$ Q**: Không can thiệp, giữ nguyên cấu trúc.
+### 4.2. Cập nhật Sheet Report Saga
+- **Sheet**: [Report](https://docs.google.com/spreadsheets/d/1KiSpOuGezhePNSQDPx-xz-_KxfzRzltpR-gI1aQdD3I/edit?gid=2134196678#gid=2134196678), ID `1KiSpOuGezhePNSQDPx-xz-_KxfzRzltpR-gI1aQdD3I`, tab `Report Saga` (gid `2134196678`). Tiêu đề hiện ở dòng 2 (dò động theo tên).
+- **Kích hoạt**: người dùng gửi tên KOC + link bài đăng + Link UTM KOC (+ link thành phẩm Materials).
 
-### 4.3. Cập Nhật Báo Cáo Post Air (Tab 3: `SL post & ĐTT - Saga`)
-- **Khi KOC air bài**: Người dùng gửi link bài đăng kèm tên KOC (kịch bản: *"KOC [Tên KOC] đã air bài: [Link 1], [Link 2]..."*).
-- **Thực thi qua script**: `src/action_post_air.cjs`.
-- **Quy trình chi tiết**:
-  1. **Tra cứu Tab `CSC - Saga`**:
-     - Tìm kiếm dòng tương ứng của KOC theo tên.
-     - Lấy: `Ngày Book` (Cột C), `Người phụ trách` (Cột B), `Tên KOC` (Cột D), `Link SP UTM` (Cột E), `Giá trị SP` (Cột F).
-  2. **Gán Ngày Air Post (Cột B)**:
-     - Mặc định là ngày người dùng gửi bài (`DD/MM/YYYY`) nếu không có ghi chú cụ thể.
-  3. **Phân tích nhãn Hyperlink bài đăng**:
-     - **Facebook**: Chứa `reel`/`reels` $\rightarrow$ Nhãn `Facebook Reels`; khác $\rightarrow$ Nhãn `Facebook`. Nhóm: `FB / IG`.
-     - **TikTok**: Chứa `/photo/` $\rightarrow$ Nhãn `Tiktok Photo`; khác $\rightarrow$ Nhãn `Tiktok`. Nhóm: `Tiktok`.
-     - **Instagram**: Chứa `reel`/`reels` $\rightarrow$ Nhãn `Instagram Reels`; chứa `/p/` hoặc `photo` $\rightarrow$ Nhãn `Instagram`; khác $\rightarrow$ Nhãn `Instagram Video`. Nhóm: `FB / IG`.
-  4. **Ghi nhận & gom dòng cùng ngày**:
-     - Nếu có cả link FB và IG trong cùng ngày $\rightarrow$ Gom trên 1 dòng: Link 1 ở Cột I (`Link post 1`), Link 2 ở Cột R (`Link post 2`), Cột G là `FB / IG`.
-     - Nếu là TikTok hoặc các kênh độc lập khác $\rightarrow$ Ghi trên dòng riêng, Cột G tương ứng (`Tiktok`, `Threads`, `Youtube`).
-  5. **Bảo toàn công thức & chỉ ghi mới**:
-     - Quét tìm dòng trống đầu tiên (cột D rỗng). Tuyệt đối không ghi đè.
-     - Kế thừa và bảo toàn công thức tự động tại Cột H (`Tổng điểm tương tác`), Cột L (`Giá trị nhận diện đem lại post 1`), Cột U (`Giá trị nhận diện đem lại post 2`).
+#### 4.2.1. Phân loại cột theo màu tiêu đề
+| Màu tiêu đề | Cột | AI làm gì |
+|---|---|---|
+| **Xám** (khóa tra cứu) | `Liên hệ lần thứ`, `Tên kênh` | **Điền** (đồng bộ từ Sheet Data KOC). Khi 2 ô này có dữ liệu, các cột xanh tự đổ về |
+| **Trắng** (nhập tay) | `Ngày AIR`, `Link UTM KOC`, `Materials`, `Format`, `Thời gian SDHA`, `Kênh đăng`, `Link post` | **Điền** |
+| **Xanh lá/xanh đậm** (tự đổ công thức) | `Ngày BOOK`, `Người phụ trách`, `Tên KOC / Nghệ danh`, `Tệp / nhóm KOC`, `Thương hiệu hợp tác`, `Dự án đã liên hệ`, `Mã sản phẩm`, `Tổng chi phí sau deal`, `View/CPM/Cảm xúc/Bình luận/Chia sẻ/Lưu trữ`... | **KHÔNG điền**, chỉ đọc lại để kiểm tra |
+| **Đỏ/hồng** | `Nhắc nhở` | Không đụng |
+> Màu là nhãn nhận biết; AI vẫn xác định theo **tên cột** (mục 1.4). Nếu team đổi màu/đổi cột thì cập nhật lại bảng này.
+
+#### 4.2.2. Quy tắc cấu trúc hàng: 1 Materials → nhiều bài đăng
+- **Mỗi hàng = 1 link bài đăng (1 kênh)**.
+- **Cột `Materials` lặp lại ở mọi hàng thuộc cùng bộ thành phẩm**; `Liên hệ lần thứ`, `Tên kênh`, `Link UTM KOC` cũng lặp. Không gộp nhiều link vào 1 ô, không để trống Materials ở các hàng sau (để lọc/pivot và chỉ số View/CPM theo từng bài vẫn đúng).
+- Ví dụ: KOC A có Materials **B** với link post A, B, C và Materials **G** với link post H, K, M → ghi **6 hàng liên tiếp**:
+
+| Liên hệ lần thứ | Tên kênh | Materials | Link post |
+|---|---|---|---|
+| 1 | KOC A | B | A |
+| 1 | KOC A | B | B |
+| 1 | KOC A | B | C |
+| 1 | KOC A | G | H |
+| 1 | KOC A | G | K |
+| 1 | KOC A | G | M |
+
+- Mỗi bộ Materials có thể có `Format` riêng (Video / Hình ảnh) → `Format` ghi theo từng bộ.
+- Lưu ý khi làm báo cáo: các cột xanh như `Tổng chi phí sau deal` sẽ lặp ở mọi hàng của cùng KOC, nên khi tính tổng phải lọc theo `Liên hệ lần thứ` + `Tên kênh` (không cộng thẳng cột).
+
+#### 4.2.3. Workflow tối ưu (AI thực hiện)
+Người dùng gửi **1 tin nhắn cho mỗi bộ Materials** (hoặc nhiều khối liên tiếp), mẫu gợi ý:
+```
+KOC <tên kênh> [lần <n>]
+Materials: <link Drive>   Format: Video   UTM: <link UTM>
+Link post: <link1>, <link2>, <link3>
+```
+1. **Phân tích**: tách KOC, các khối Materials; mỗi khối có danh sách link post.
+2. **Tra khóa**: dò Sheet Data KOC theo `Tên kênh` (và `Người phụ trách` hiện tại) để lấy `Liên hệ lần thứ` + `Tên kênh`.
+   - KOC có nhiều lần hợp tác mà người dùng không nói lần nào → **hỏi lại**, không đoán.
+3. **Dựng hàng**: mỗi link post 1 hàng; `Kênh đăng` và nhãn hyperlink bóc tách từ link; `Ngày AIR` = ngày người dùng gửi (trừ khi có ghi chú); `Thời gian SDHA` theo hợp đồng.
+4. **Chống trùng**: nếu URL đã có trong cột `Link post` (đọc từ công thức HYPERLINK) → bỏ qua và báo; tránh ghi 2 lần khi người dùng gửi lại.
+5. **Ghi**: tìm khối **dòng trống liên tiếp đủ N hàng** đầu tiên (cột `Tên kênh` rỗng), không ghi đè dòng có dữ liệu.
+   - Ghi 2 ô xám (`Liên hệ lần thứ`, `Tên kênh`) **trước**, rồi các ô trắng. Chỉ cập nhật từng ô thuộc cột cho phép, không ghi cả dòng, không đụng ô xanh.
+   - `Kênh đăng` là dropdown: lấy danh sách giá trị hợp lệ từ data validation của ô; giá trị không khớp → dừng và báo.
+6. **Kiểm tra sau ghi**: đọc lại các cột xanh của từng hàng. Nếu `Tên KOC / Nghệ danh` vẫn rỗng (tra cứu thất bại: sai tên kênh hoặc sai lần hợp tác) → báo ngay, không tự sửa.
+7. **Báo kết quả**: bảng các hàng đã ghi (số dòng, KOC, lần, Materials, kênh, link) + mục đã bỏ qua (trùng) + cảnh báo.
+
+#### 4.2.4. Nguồn giá trị từng cột trắng
+| Cột | Nguồn |
+|---|---|
+| `Ngày AIR` | ngày người dùng gửi link (`DD/MM/YYYY`), trừ khi có ghi chú ngày khác |
+| `Link UTM KOC` | người dùng gửi |
+| `Materials` | link thành phẩm từ bước 4.1 |
+| `Format` | Video / Hình ảnh |
+| `Thời gian SDHA` | theo hợp đồng (mặc định `Trọn đời` nếu HĐ nhắc SDHA mà không nêu thời hạn) |
+| `Kênh đăng` | bóc tách từ link: Tiktok / Facebook / Instagram / Threads / Youtube |
+| `Link post` | `=HYPERLINK("url", "nhãn")` theo bảng dưới |
+
+**Nhãn hyperlink `Link post`**:
+| Nền tảng | Điều kiện | Nhãn |
+|---|---|---|
+| Facebook | chứa `reel`/`reels` | `Facebook Reels` |
+| Facebook | khác | `Facebook` |
+| TikTok | chứa `/photo/` | `Tiktok Photo` |
+| TikTok | khác | `Tiktok` |
+| Instagram | chứa `reel`/`reels` | `Instagram Reels` |
+| Instagram | chứa `/p/` hoặc `photo` | `Instagram` |
+| Instagram | khác | `Instagram Video` |
 
 ---
 

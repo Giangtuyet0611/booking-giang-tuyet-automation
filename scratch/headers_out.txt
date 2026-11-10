@@ -1,0 +1,36 @@
+## 2026-10-28 - Report các chỉ số hiệu quả của KOC Saga
+TAB 2134196678 | Report Saga | rows=1001
+1 ["Nguyên tắc","1. Điền Liên hệ lần thứ + Tên kênh vào cột D, các thông tin "]
+2 ["Ngày BOOK","Ngày AIR","Nhắc nhở","Người phụ trách","Liên hệ lần thứ","Tên kênh\n(Kênh chính booking, không trùng lặp)","Tên KOC / Nghệ danh","Tệp / nhóm KOC","Thương hiệu hợp tác","Dự án đã liên hệ","Mã sản phẩm","Link UTM KOC","Materials","Format","Thời gian SDHA","Kênh đăng","Link post","Tổng chi phí sau deal","View 3D\n(Sau 3 ngày AIR)","CPM 3D\n(Sau 3 ngày AIR)","View 7D\n(Sau 7 ngày AIR)","CPM 7D\n(Sau 3 ngày AIR)","Cảm xúc 7D","Bình luận 7D","Chia sẻ 7D","Lưu trữ 7D"]
+3 ["","","","","2","Momomama","","","","","","","1","Video","","Instagram","","","178.098","0","257.098","0"]
+TAB 1130978264 | CSC - Saga (11/2026) | rows=1000
+TAB 430735098 | CSC - Saga (2024-10/2016) | rows=50462
+TAB 1709158676 | SL post & ĐTT - Saga (2024-10/2026) | rows=1201
+--- KOC Boom headers full
+0: "STT\n(Auto)"
+1: "Người phụ trách"
+2: "Ngày tìm"
+3: "Liên hệ lần thứ\n(Auto)"
+4: "Tên kênh\n(Kênh chính booking, không trùng lặp)"
+5: "Tên KOC / Nghệ danh"
+6: "Tệp / nhóm KOC"
+7: "Ngành / lĩnh vực"
+8: "Style Content"
+9: "Khu vực"
+10: "Kênh TikTok"
+11: "Link Facebook"
+12: "Kênh Instagram"
+13: "Kênh Youtube"
+14: "Contact\n(Tên liên hệ/Nguồn + Email/Sđt)"
+15: "Thương hiệu hợp tác"
+16: "Dự án đã liên hệ"
+17: "Lý do rớt deal ?"
+18: "Trạng thái"
+19: "Giá báo"
+20: "Số sản phẩm tặng"
+21: "Mã sản phẩm\n(Cách nhau bởi dấu ; và khoảng cách trước - sau)"
+22: "Tổng chi phí sản phẩm"
+23: "Cost sản phẩm\n(Auto)"
+24: "Tổng cast"
+25: "Tổng chi phí sau deal"
+26: "Ngày BOOK\n(Auto)"

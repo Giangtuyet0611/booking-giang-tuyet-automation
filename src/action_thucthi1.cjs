@@ -1,7 +1,7 @@
 const { google } = require('googleapis');
 const fs = require('fs');
 const { generatePaymentRequestDoc } = require('./action_dntt.cjs');
-const { generateUnifiedDispatchEmail } = require('./utils/mail_template.cjs');
+const { generateUnifiedDispatchEmail, renderEmailHtml } = require('./utils/mail_template.cjs');
 const { findStoreByAddressOrName } = require('./utils/store_lookup.util.cjs');
 const { createGmailDraft } = require('./utils/gmail_draft.util.cjs');
 
@@ -49,7 +49,7 @@ async function executeThucThi1(data) {
 
   // 1. TẠO DRAFT MẪU MAIL XUẤT HÀNG GOM CHUNG TRONG 1 EMAIL DUY NHẤT
   console.log('1. Đang sinh bản Draft Mail xuất hàng gom chung trong 1 email...');
-  const mailResult = generateUnifiedDispatchEmail({
+  const mailParams = {
     kocName: data.kocName,
     kocFullName: data.kocFullName || data.fullName || data.kocName,
     kocPhone: data.phone,
@@ -70,7 +70,8 @@ async function executeThucThi1(data) {
     storePic: storePic,
     pickupDate: data.pickupDate || '05/11/2026',
     needDate: data.needDate || '04/11/2026'
-  });
+  };
+  const mailResult = generateUnifiedDispatchEmail(mailParams);
 
   results.email = mailResult;
   console.log(`-> Đã tạo bản Draft Mail gom chung thành công!`);
@@ -78,26 +79,10 @@ async function executeThucThi1(data) {
   // Đẩy bản nháp vào Gmail Draft
   try {
     const subject = `Marketing - Xuất sản phẩm tặng KOC ${data.kocName}`;
-    const htmlBody = `<div style="font-family: Arial, sans-serif; font-size: 14px; line-height: 1.6; color: #333;">
-${mailResult.body.replace(/\n/g, '<br/>')}
-</div>`;
-
-    const toRecipients = [targetEmail, 'kimlien@donghohaitrieu.vn'];
-    if (data.xnhProducts && data.xnhProducts.length > 0) {
-      toRecipients.push('kimngoc@donghohaitrieu.vn');
-    }
-
-    const ccRecipients = [];
-    if (data.transferShowrooms && data.transferShowrooms.length > 0) {
-      for (const ts of data.transferShowrooms) {
-        const tsInfo = await findStoreByAddressOrName(ts.sourceShowroom);
-        if (tsInfo) ccRecipients.push(tsInfo.email);
-      }
-    }
+    // Font serif, cỡ Lớn, in đậm thông tin quan trọng; KHÔNG đề xuất người nhận (To) và KHÔNG Cc
+    const htmlBody = renderEmailHtml(mailResult.body, mailParams);
 
     const draftRes = await createGmailDraft({
-      to: toRecipients,
-      cc: ccRecipients.length > 0 ? ccRecipients : undefined,
       subject,
       htmlBody
     });
@@ -105,7 +90,7 @@ ${mailResult.body.replace(/\n/g, '<br/>')}
     results.gmailDraftId = draftRes.id;
     console.log(`-> ĐÃ ĐẨY BẢN NHÁP VÀO GMAIL DRAFTS THÀNH CÔNG! (Draft ID: ${draftRes.id})`);
     console.log(`   Tiêu đề: ${subject}`);
-    console.log(`   Người nhận: ${toRecipients.join(', ')}`);
+    console.log(`   Người nhận: (để trống - người dùng tự điền khi gửi)`);
   } catch (err) {
     console.warn(`! Không thể tự động tạo Draft trong Gmail: ${err.message}`);
   }

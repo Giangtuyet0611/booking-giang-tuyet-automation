@@ -45,14 +45,13 @@
 8. **Email xuất sản phẩm & Đẩy Gmail Draft**:
    - Tiêu đề mail chuẩn: `Marketing - Xuất sản phẩm tặng KOC <tên KOC>`.
    - Danh sách mail cửa hàng: Tra cứu tự động từ Sheet `1G-S4EQ-HQHPMqdKk9V26yRVNQ_ZWn-dXezcZNogh-jY` theo địa chỉ/tên showroom.
-   - Người nhận / CC:
-     - To: Email showroom nhận hàng, `kimlien@donghohaitrieu.vn`, `kimngoc@donghohaitrieu.vn` (nếu có hàng xuất XNH).
-     - Cc: Email showroom chuyển (nếu có), leader/quản lý showroom, team hỗ trợ showroom, PIC booking.
+   - Người nhận (To / Cc): Để trống cả To và Cc, không tự động điền (người dùng tự điền khi kiểm tra và gửi mail).
    - Xuất từ nhiều nguồn: Từng mục nguồn (Kho XNH, Showroom chuyển) chỉ ghi đúng sản phẩm của nguồn đó, trừ mục xuất tại showroom người nhận thì ghi tất cả sản phẩm KOC nhận.
    - Tự động tạo thư nháp (Draft) trong Gmail sau khi soạn thảo xong.
 
-9. **Định dạng thời gian tên file**:
-   - Tất cả các file được tạo (Hợp đồng, Phiếu đề nghị thanh toán, Biên bản...) đều phải đặt tên bắt đầu bằng `YYYY-MM-DD` (ISO format, ví dụ: `2026-10-28 - ...`).
+9. **Định dạng tên file & thư mục (ISO YYYY-MM-DD)**:
+   - Tất cả các file và thư mục được tạo (Hợp đồng, Phiếu đề nghị thanh toán, Biên bản...) đều phải đặt tên bắt đầu bằng `YYYY-MM-DD` (ISO format, ví dụ: `2026-10-28 - ...`).
+   - Tiêu đề HĐ Tặng SP: `YYYY-MM-DD - [Tên KOC] - [Booking KOC/KOL] Hợp đồng Trao đổi tặng sản phẩm - Đồng Hồ Hải Triều` (**Tuyệt đối KHÔNG có mã sản phẩm và KHÔNG đánh số (1), (2)**. Nếu $\ge 2$ HĐ thì giãn cách ngày ký $\pm 3$ ngày so với ngày yêu cầu để ngày `YYYY-MM-DD` tự phân biệt; tất cả lưu trong thư mục tổng của KOC).
 
 10. **Phân bổ SOW khi tách hợp đồng (Cast & Gift)**:
     - Khi deal được tách thành nhiều hợp đồng (1 HĐ Cast + N HĐ Tặng SP): Mỗi hợp đồng CHỈ CHỨA DUY NHẤT hạng mục SOW tương ứng với hợp đồng đó (cả ở Bảng SOW Điều 1, quy chuẩn Điều 1.1/1.2, và câu đăng tải Điều 1.3).
