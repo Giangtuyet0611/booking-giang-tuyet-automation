@@ -27,12 +27,11 @@ Tài liệu này định nghĩa 11 nguyên tắc vận hành cốt lõi, bất b
 
 #### 3.1. Sheet Data KOC - cập nhật trạng thái chốt deal
 
-- Spreadsheet: `1J7pUE_SV-ToO8jNuZZYktu8HsYhYVHVO5GjNwOWJolw`, Tab `Data KOC (11/2026)` (gid `280295617`). Tab theo tháng: tháng mới ưu tiên Tab `Data KOC (MM/YYYY)` mới nhất, nếu không chắc phải hỏi lại.
-- Spreadsheet: `1J7pUE_SV-ToO8jNuZZYktu8HsYhYVHVO5GjNwOWJolw`, Tab `Data KOC (11/2026)` (gid `280295617`). Tab theo tháng: sang tháng mới PHẢI hỏi lại người dùng dùng tab nào trước khi ghi (không tự chọn).
+- Spreadsheet: `1J7pUE_SV-ToO8jNuZZYktu8HsYhYVHVO5GjNwOWJolw`, Tab: DUY NHẤT Tab `Data KOC (11/2026)` (gid `280295617`).
+- **QUY TẮC BẤT BIẾN**: TUYỆT ĐỐI CHỈ ĐIỀN VÀO TAB NÀY, KHÔNG TỰ TẠO THÊM TAB THÁNG MỚI.
 - **Kích hoạt**: Khi người dùng gửi thông tin hợp đồng của KOC tên A.
 - **KHÔNG thêm dòng mới, chỉ CẬP NHẬT dòng đã có**:
   1. Dò tên A ở cột `Tên kênh (Kênh chính booking, không trùng lặp)` (so khớp đã chuẩn hóa, bỏ dấu @, hoa/thường).
-  2. Chỉ cập nhật khi cột `Người phụ trách` của dòng đó đúng là người dùng. Nếu người phụ trách khác, không tìm thấy, hoặc trùng nhiều dòng: KHÔNG ghi, báo lại để người dùng quyết định.
   2. Chỉ cập nhật khi cột `Người phụ trách` của dòng đó đúng là **người phụ trách hiện tại** (mặc định `Giáng Tuyết`; nếu người khác sử dụng và nhắn "tôi là [Tên]" thì áp dụng tên đó từ lúc đó đến khi họ báo đổi; nếu chưa rõ ai đang dùng thì phải hỏi trước khi ghi). Nếu người phụ trách khác, không tìm thấy, hoặc trùng nhiều dòng: KHÔNG ghi, báo lại để người dùng quyết định.
   3. Khi khớp, điền các cột sau:
      - `Trạng thái`: `Đã chốt`

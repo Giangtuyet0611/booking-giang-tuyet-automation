@@ -118,7 +118,8 @@ Khi người dùng nhắn **"thực thi 1"**, AI thực hiện tuần tự 4 tá
 ### 3.4. Cập Nhật Trạng Thái Chốt Deal Trên Sheet Data KOC (thay cho ghi dòng mới vào `CSC - Saga`)
 - **Ngừng ghi** vào Spreadsheet cũ (`1ShViO4aj-nHXS8-OTmYd56Y-KzImHSvpgHE7DqPgCO0`) và 3 Tab `CSC - Saga`, `SL materials - Saga v1`, `2 SL post & ĐTT - Saga`. Chuyển sang 2 Sheet chung bên dưới.
 - **Nhận diện cột theo TÊN tiêu đề, KHÔNG theo địa chỉ cột/dòng** (team có thể đảo/thêm cột): tự dò dòng tiêu đề, chuẩn hóa tên cột (bỏ xuống dòng, khoảng trắng, hoa/thường); thiếu hoặc trùng cột bắt buộc thì dừng và báo.
-- **Sheet Data KOC**: [link](https://docs.google.com/spreadsheets/d/1J7pUE_SV-ToO8jNuZZYktu8HsYhYVHVO5GjNwOWJolw/edit?gid=280295617#gid=280295617) (Tab `Data KOC (11/2026)`, gid `280295617`).
+- **Sheet Data KOC**: [link](https://docs.google.com/spreadsheets/d/1J7pUE_SV-ToO8jNuZZYktu8HsYhYVHVO5GjNwOWJolw/edit?gid=280295617#gid=280295617) (DUY NHẤT Tab `Data KOC (11/2026)`, gid `280295617`).
+  - **LƯU Ý BẮT BUỘC**: Tuyệt đối chỉ điền vào đúng tab này, KHÔNG tự ý tạo thêm tab tháng mới.
 - Khi tôi gửi thông tin hợp đồng KOC tên A: dò tên A ở cột `Tên kênh (Kênh chính booking, không trùng lặp)`.
   - Chỉ cập nhật nếu cột `Người phụ trách` của dòng đó đúng là tôi; không tìm thấy / người phụ trách khác / trùng nhiều dòng thì KHÔNG ghi và báo lại.
   - Không tạo dòng mới. Chỉ điền các cột sau của đúng dòng đó:
