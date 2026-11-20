@@ -1,0 +1,133 @@
+{
+  "bookingDate": "2026-11-13",
+  "pic": "Giáng Tuyết",
+  "koc": {
+    "name": "Gtuyet Nè",
+    "fullName": "NGUYỄN MINH ANH",
+    "cccd": "674986",
+    "phone": "0900000123",
+    "email": "minhanh.demo@example.com",
+    "address": "123 đường Hoa Hồng, phường Bàn Cờ, TP. Hồ Chí Minh",
+    "channels": {
+      "tiktok": "https://www.example.com/@dmyne",
+      "facebook": "https://www.example.com/dmyne"
+    }
+  },
+  "cast": {
+    "amount": 15000000,
+    "type": "Net",
+    "paymentTerms": "2_installments"
+  },
+  "products": [
+    {
+      "code": "71959-RGRGTTR-2",
+      "name": "Đồng hồ SAGA 71959-RGRGTTR-2",
+      "collection": "Saga Lunar",
+      "value": 8950000,
+      "brand": "Saga",
+      "origin": "Mỹ",
+      "movement": "Quartz (Pin)",
+      "warranty": "2 Năm",
+      "source": "Showroom Quang Trung"
+    },
+    {
+      "code": "53578-LGSVWH-2",
+      "name": "Đồng hồ SAGA 53578-LGSVWH-2",
+      "collection": "Saga Stella",
+      "value": 6500000,
+      "brand": "Saga",
+      "origin": "Mỹ",
+      "movement": "Quartz (Pin)",
+      "warranty": "2 Năm",
+      "source": "Kho XNH"
+    },
+    {
+      "code": "53215-SVBLBL-2",
+      "name": "Đồng hồ SAGA 53215-SVBLBL-2",
+      "collection": "Saga Charm",
+      "value": 5800000,
+      "brand": "Saga",
+      "origin": "Mỹ",
+      "movement": "Quartz (Pin)",
+      "warranty": "2 Năm",
+      "source": "Kho XNH"
+    },
+    {
+      "code": "54510-SVLBSV-2",
+      "name": "Đồng hồ SAGA 54510-SVLBSV-2",
+      "collection": "Saga Little Love",
+      "value": 6250000,
+      "brand": "Saga",
+      "origin": "Mỹ",
+      "movement": "Quartz (Pin)",
+      "warranty": "2 Năm",
+      "source": "Tại cửa hàng"
+    },
+    {
+      "code": "53578-LGCRCR-2",
+      "name": "Đồng hồ SAGA 53578-LGCRCR-2",
+      "collection": "Saga Classic",
+      "value": 5000000,
+      "brand": "Saga",
+      "origin": "Mỹ",
+      "movement": "Quartz (Pin)",
+      "warranty": "2 Năm",
+      "source": "Tại cửa hàng"
+    }
+  ],
+  "sow": [
+    {
+      "category": "Photo Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 bộ (7-8 ảnh)",
+      "concept": "Bộ ảnh cưới Pre-Wedding cô dâu và chú rể cận đồng hồ Saga",
+      "airDate": "25/11/2026",
+      "contractType": "Gift"
+    },
+    {
+      "category": "Photo Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 bộ (7-8 ảnh)",
+      "concept": "Bộ ảnh cưới Pre-Wedding cô dâu và chú rể cận đồng hồ Saga",
+      "airDate": "28/11/2026",
+      "contractType": "Gift"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 video (60-90s)",
+      "concept": "Kể chuyện hành trình yêu nhau, đánh dấu cột mốc về chung nhà bằng đồng hồ Saga",
+      "airDate": "29/11/2026",
+      "contractType": "Cast"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 video (60-90s)",
+      "concept": "Chia sẻ câu chuyện đeo đồng hồ ngày cưới, review thiết kế và trải nghiệm đeo Saga",
+      "airDate": "10/01/2027",
+      "note": "Gửi kịch bản 15/12/2026; Gửi video demo ngày 05/01/2027",
+      "contractType": "Cast"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 video (60-90s)",
+      "concept": "Chia sẻ về dự án Cô Dâu Saga của brand Saga Vietnam - Tặng đồng hồ cưới miễn phí",
+      "airDate": "12/01/2027",
+      "note": "Gửi kịch bản 18/12/2026; Gửi video demo ngày 08/01/2027",
+      "contractType": "Cast"
+    }
+  ],
+  "sdha": "Trọn đời",
+  "showroom": {
+    "name": "Showroom 156 TQK (003156)",
+    "address": "156A Trần Quang Khải, Phường Tân Định, Quận 1, Thành phố Hồ Chí Minh",
+    "pickupDate": "15/11/2026"
+  }
+}

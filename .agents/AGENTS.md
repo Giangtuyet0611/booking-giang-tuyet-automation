@@ -116,7 +116,8 @@ Mọi sản phẩm đồng hồ khi đưa vào hợp đồng (Điều 2.1) hoặ
 - **Nguyên tắc phân bổ sản phẩm theo nguồn xuất**:
   - Từng mục nguồn (Kho XNH, Showroom chuyển) **CHỈ GHI ĐÚNG** sản phẩm của nguồn đó.
   - Riêng mục xuất tại showroom người nhận thì ghi **TẤT CẢ** các sản phẩm KOC nhận.
-- **Tự động đẩy vào Thư nháp (Gmail Draft)**: Sau khi soạn xong, hệ thống đẩy thẳng vào mục Thư nháp (Drafts) của tài khoản Gmail để người dùng chỉ cần kiểm tra và bấm gửi.
+- **Tự động đẩy vào Thư nháp (Gmail Draft)**: Sau khi soạn xong, hệ thống đẩy thẳng vào mục Thư nháp (Drafts) của tài khoản Gmail để người dùng chỉ cần kiểm tra và bấm gửi. Nếu đã có draft trước đó cho cùng KOC và cần sửa, cập nhật trực tiếp trên draft đó thay vì tạo thêm draft trùng.
+- **Định dạng & Nội dung chuẩn**: Giữ nguyên font (`Times New Roman`, cỡ Large) và format xuống dòng, **KHÔNG in đậm (no bold)**. Câu thao tác xuất dùng đúng cụm: `"bao gồm hộp Saga, túi giấy và BOM đi kèm không xuất gói bảo hành mở rộng của Hải Triều"`.
 
 ---
 
@@ -151,3 +152,18 @@ Mọi sản phẩm đồng hồ khi đưa vào hợp đồng (Điều 2.1) hoặ
 ### 12. CẬP NHẬT BÁO CÁO POST AIR (SHEET REPORT - `Report Saga`)
 - Khi KOC air bài và người dùng gửi link bài đăng kèm tên KOC, thực hiện đúng mục **3.2** (nhận diện cột theo tên, mỗi hàng 1 kênh, ghi vào dòng trống đầu tiên, không ghi đè).
 - Không còn đối chiếu Tab `CSC - Saga` cũ; thông tin KOC lấy từ Sheet Data KOC (mục 3.1).
+
+---
+
+### 13. QUY ĐỊNH THỰC THI QUA CLI TẬP TRUNG (CLI AUTOMATION STANDARD)
+- **Tuyệt đối KHÔNG sử dụng `node -e` hoặc viết script ad-hoc tạm thời** trong quá trình vận hành để tránh việc hệ thống liên tục hỏi quyền phê duyệt lệnh (do sai khác cú pháp).
+- **Mọi thao tác nghiệp vụ đều BẮT BUỘC thực thi thông qua CLI duy nhất**:
+  - Tạo / làm hợp đồng: `node src/cli.cjs contract --input deals/<file>.json [--replace] [--doc-id <docId>]`
+  - **Sửa lỗi hợp đồng trực tiếp**: Khi hợp đồng đã được tạo mà phát hiện sai sót, **BẮT BUỘC sửa trực tiếp trên file hiện có** (`--doc-id <docId>`), tuyệt đối không tạo thêm các bản sao trùng lặp.
+  - Thực thi 1: `node src/cli.cjs thucthi1 --input deals/<file>.json [--dry-run]`
+  - Kiểm tra hợp đồng: `node src/cli.cjs verify-contract --id <docId>`
+  - Tạo khung Deal từ thông tin thô: `node src/cli.cjs new-deal --input <raw_text_file> [--output deals/<file>.json]`
+  - Đọc live Docs: `node src/cli.cjs inspect-doc --id <docId>`
+- **Cơ chế tiền tố cố định**: Toàn bộ các lệnh đều dùng chung tiền tố `node src/cli.cjs`. Người dùng chỉ cần cấp quyền "Always allow" 01 lần duy nhất cho tiền tố này thì toàn bộ workflow sẽ tự động hóa 100% trơn tru, không bao giờ hỏi lại.
+- **Dữ liệu truyền qua JSON**: Mọi thông tin KOC được ghi vào thư mục `deals/<tên-koc>.json` bằng công cụ ghi file chuẩn của Agent, không đưa code hoặc JSON trực tiếp vào chuỗi dòng lệnh.
+

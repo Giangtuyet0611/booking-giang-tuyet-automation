@@ -1,36 +1,47 @@
-const { google } = require('googleapis');
-const fs = require('fs');
-
-const c = JSON.parse(fs.readFileSync('d:/Booking/.gdrive-server-credentials.json'));
-const k = JSON.parse(fs.readFileSync('d:/Booking/gcp-oauth.keys.json')).installed;
-const a = new google.auth.OAuth2(k.client_id, k.client_secret);
-a.setCredentials(c);
-const docs = google.docs({ version: 'v1', auth: a });
+const { getClients } = require('../src/lib/google.cjs');
 
 async function inspectTables() {
-  const docId = '1rmTgsWuU64Ej_JTPYxpXqv2DcvSImZAG1bfQZ_dDDss';
-  const res = await docs.documents.get({ documentId: docId });
-  const content = res.data.body.content;
+  const { docs } = getClients();
 
-  let tableIdx = 0;
-  for (const elem of content) {
-    if (elem.table) {
-      console.log(`\n=================== TABLE ${tableIdx} (start: ${elem.startIndex}, end: ${elem.endIndex}) ===================`);
-      elem.table.tableRows.forEach((row, rIdx) => {
-        const cells = row.tableCells.map(c => {
-          let text = '';
-          (c.content || []).forEach(p => {
-            if (p.paragraph) {
-              text += p.paragraph.elements.map(e => e.textRun ? e.textRun.content : '').join('').trim();
+  const docDanQuynhId = '1GFeuVyG1giikSQ6nIrp99zqg8tSpROGyuMlO0prNThg';
+  const docDmyId = '1r21XNbqRrQA8--JdtGYytaqgPhVl5GB5ny15qE22JWk';
+  const docTemplateId = '1ODq7piHW8reZeQe8ERbGY9REmZpzVZlOdgRukGvUZ-8';
+
+  const [resDQ, resDmy, resTpl] = await Promise.all([
+    docs.documents.get({ documentId: docDanQuynhId }),
+    docs.documents.get({ documentId: docDmyId }),
+    docs.documents.get({ documentId: docTemplateId })
+  ]);
+
+  function dumpTables(doc, name) {
+    console.log(`\n================== ${name} ==================`);
+    const tables = [];
+    doc.body.content.forEach((el, idx) => {
+      if (el.table) {
+        tables.push({ idx, rows: el.table.rows, el });
+      }
+    });
+    console.log(`Found ${tables.length} tables`);
+    tables.forEach((t, tIdx) => {
+      console.log(`\n--- Table ${tIdx + 1} (${t.rows} rows) ---`);
+      t.el.table.tableRows.forEach((tr, rIdx) => {
+        const rowText = tr.tableCells.map(tc => {
+          let cText = '';
+          tc.content.forEach(c => {
+            if (c.paragraph) {
+              cText += c.paragraph.elements.map(e => e.textRun?.content || '').join('');
             }
           });
-          return text;
-        });
-        console.log(`Row ${rIdx}: ${cells.join(' | ')}`);
+          return cText.trim().replace(/\n/g, ' ');
+        }).join(' | ');
+        console.log(`Row ${rIdx + 1}: ${rowText}`);
       });
-      tableIdx++;
-    }
+    });
   }
+
+  dumpTables(resTpl.data, 'TEMPLATE GỐC');
+  dumpTables(resDmy.data, 'DMY NÈ (BẢN CHUẨN TRƯỚC ĐÓ)');
+  dumpTables(resDQ.data, 'ĐAN QUỲNH (HIỆN TẠI)');
 }
 
-inspectTables().catch(console.error);
+inspectTables().catch(e => console.error(e));

@@ -71,3 +71,9 @@
       - **Phân loại kênh Cột G**: `Tiktok` cho Tiktok; `FB / IG` cho Facebook và Instagram; `Threads` cho Threads; `Youtube` cho Youtube.
       - **Gom dòng cùng ngày cho FB & IG**: Nếu cùng 1 ngày air có cả link FB và IG $\rightarrow$ Ghi nhận chung 1 dòng: Link 1 ở Cột I (`Link post 1`), Link 2 ở Cột R (`Link post 2`), Cột G là `FB / IG`.
       - **Chỉ ghi MỚI & bảo toàn công thức**: Luôn ghi vào dòng trống đầu tiên (cột D rỗng), không ghi đè, tự động kế thừa công thức tính toán tại Cột H, Cột L, Cột U.
+
+13. **Quy định thực thi qua CLI cố định (node src/cli.cjs)**:
+    - Không sử dụng `node -e` hoặc viết script ad-hoc.
+    - Mọi bước nghiệp vụ đều chạy qua CLI: `node src/cli.cjs <contract | thucthi1 | verify-contract | new-deal>`.
+    - Dữ liệu KOC lưu tại file JSON `deals/<tên-koc>.json`.
+    - Người dùng chỉ cần chọn "Always allow" 1 lần cho tiền tố `node src/cli.cjs` để toàn bộ quy trình tự động hóa hoàn toàn.

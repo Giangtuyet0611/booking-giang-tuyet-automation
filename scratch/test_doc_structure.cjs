@@ -15,17 +15,27 @@ function getClients() {
 
 async function testInspect() {
   const { docs } = getClients();
-  const res = await docs.documents.get({ documentId: '1ODq7piHW8reZeQe8ERbGY9REmZpzVZlOdgRukGvUZ-8' });
+  const docId = process.argv[2] || '1iiZvzmGYEd5TVnsZDBE6Q5-PCXqFnaQG47JweAu7DSQ';
+  const res = await docs.documents.get({ documentId: docId });
   console.log('Doc Title:', res.data.title);
   
   const tables = [];
   res.data.body.content.forEach((el, idx) => {
     if (el.table) {
+      const rows = el.table.tableRows.map((r, ri) => {
+        const text = r.tableCells.map(c => {
+          let t = '';
+          c.content.forEach(co => {
+            if (co.paragraph) t += co.paragraph.elements.map(e => e.textRun?.content || '').join('');
+          });
+          return t.trim().replace(/\n/g, ' ');
+        }).join(' | ');
+        return `[Row ${ri}] ${text}`;
+      });
       tables.push({
         index: idx,
-        startIndex: el.startIndex,
-        endIndex: el.endIndex,
-        rowCount: el.table.tableRows.length
+        rowCount: el.table.tableRows.length,
+        rows
       });
     }
   });

@@ -1,0 +1,64 @@
+{
+  "bookingDate": "2026-11-13",
+  "pic": "Thuận",
+  "koc": {
+    "name": "Đan Quỳnh",
+    "fullName": "NGUYỄN VŨ ĐAN QUỲNH",
+    "cccd": "079303014882",
+    "phone": "0923504640",
+    "email": "danquynh3011@gmail.com",
+    "address": "368/24 Tân Sơn Nhì, phường Tân Sơn Nhì, quận Tân Phú, TP. Hồ Chí Minh",
+    "channels": {
+      "tiktok": "https://www.tiktok.com/@danquynh.daily",
+      "facebook": "https://www.facebook.com/DanQuynh3011",
+      "instagram": "https://www.instagram.com/dwuynh_ng/"
+    }
+  },
+  "cast": {
+    "amount": 0,
+    "type": "Net"
+  },
+  "products": [
+    {
+      "code": "54390-LGCRLG-2",
+      "name": "Đồng hồ SAGA 54390-LGCRLG-2",
+      "collection": "Saga Chroma Dance",
+      "value": 7290000,
+      "brand": "Saga",
+      "origin": "Mỹ",
+      "movement": "Quartz (Pin)",
+      "warranty": "2 Năm"
+    }
+  ],
+  "sow": [
+    {
+      "category": "Photo Post",
+      "platform": "Facebook",
+      "reup": "",
+      "qty": "01 bộ (6-8 ảnh)",
+      "concept": "Bộ ảnh chụp bằng máy cơ khi đi tiệc hoặc event",
+      "airDate": "27/11/2026"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "",
+      "qty": "01 video (60-90s)",
+      "concept": "Đeo Saga toả sáng mọi buổi tiệc",
+      "airDate": "27/11/2026"
+    }
+  ],
+  "sdha": "Trọn đời",
+  "showroom": {
+    "name": "Showroom 156 TQK (003156)",
+    "address": "156A Trần Quang Khải, Phường Tân Định, Quận 1, Thành phố Hồ Chí Minh",
+    "pickupDate": "14/11/2026",
+    "transferStore": "Showroom Phan Văn Trị (007PVT)",
+    "transferStoreAddress": "713 Phan Văn Trị, Phường Hạnh Thông, Quận Gò Vấp, Thành phố Hồ Chí Minh"
+  },
+  "notes": [
+    "Kèm hashtag + tag brand + gắn link sản phẩm + SDHA",
+    "Brand duyệt kịch bản và demo trước khi đăng"
+  ]
+}
+

@@ -35,7 +35,8 @@ flowchart LR
 
 ### 1. Phân Tách Hợp Đồng Thông Minh:
 
-- **Tách riêng Cast &amp; Sản phẩm**: Nếu 1 KOC vừa có Cast vừa được tặng sản phẩm $\rightarrow$ Tách tối thiểu thành:
+- **Tách riêng Cast &am
+p; Sản phẩm**: Nếu 1 KOC vừa có Cast vừa được tặng sản phẩm $\rightarrow$ Tách tối thiểu thành:
   - 01 Hợp đồng Thương mại (Trả cast).
   - 01 hoặc nhiều Hợp đồng Trao đổi tặng sản phẩm.
 - **Giới hạn 20 Triệu / Hợp Đồng Tặng SP**: Nếu tổng giá trị sản phẩm $> 20.000.000$ VNĐ $\rightarrow$ Tự động phân bổ vào các Hợp đồng tặng sản phẩm sao cho **mỗi hợp đồng** $\le 20.000.000$ **VNĐ**.
@@ -255,6 +256,7 @@ Link post: <link1>, <link2>, <link3>
 ---
 
 ## 7. NGUỒN SỰ THẬT (FILE QUY TẮC)
+
 
 - `.agents/AGENTS.md` (và bản trùng `.agents/RULE/booking-rules.md`): luật cốt lõi AI bắt buộc tuân thủ.
 - `.agents/SKILL/koc-booking/SKILL.md`: quy trình + script thực thi.

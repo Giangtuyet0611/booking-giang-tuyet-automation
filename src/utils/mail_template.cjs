@@ -125,7 +125,7 @@ Ngày cửa hàng cần nhận được: ${calculatedNeedDate} (trừ 01 ngày s
   sections.push(`Dear anh/chị @${targetShowroom} CH,
 Anh/chị xuất giúp em, các mẫu đồng hồ sau, khi sản phẩm đến cửa hàng:
 ${linesGift.trim()}
-Thông qua thao tác xuất 0 đồng (bao gồm hộp Saga vuông đỏ kèm dây ruy băng, túi giấy đỏ và BOM đi kèm không xuất gói bảo hành mở rộng của Hải Triều) tại cửa hàng tặng cho KOC ${kocName} và chụp đồng hồ.
+Thông qua thao tác xuất 0 đồng (bao gồm hộp Saga, túi giấy và BOM đi kèm không xuất gói bảo hành mở rộng của Hải Triều) tại cửa hàng tặng cho KOC ${kocName} và chụp đồng hồ.
 - Thông tin cửa hàng xuất: ${targetShowroom}, địa chỉ: ${targetShowroomAddress}
 Thông tin xuất hóa đơn:
 - Tên khách hàng xuất hóa đơn: ${kocFullName.toUpperCase()}
@@ -150,8 +150,8 @@ Cảm ơn anh/chị và chúc anh/chị một ngày tốt lành!`);
 
 /**
  * Chuyển nội dung text của email sang HTML chuẩn Gmail:
- * - Font serif, cỡ Lớn (Large)
- * - In đậm các thông tin quan trọng: lời chào, sản phẩm xuất, tên KOC, showroom, ngày, SĐT, CCCD, "Lưu ý"
+ * - Giữ nguyên font serif, cỡ Lớn (Large) và format xuống dòng
+ * - Không in đậm (no bold)
  * - Không có người nhận (To/Cc) - người dùng tự điền khi gửi
  */
 function escapeHtml(s) {
@@ -159,45 +159,7 @@ function escapeHtml(s) {
 }
 
 function renderEmailHtml(body, params = {}) {
-  let html = escapeHtml(body);
-
-  // 1. Các cụm cố định cần in đậm
-  const boldTerms = [
-    params.kocFullName && String(params.kocFullName).toUpperCase(),
-    params.kocFullName,
-    params.kocName,
-    params.targetShowroom,
-    params.kocPhone,
-    params.kocCccd,
-    params.pickupDate,
-    params.needDate
-  ];
-  (params.xnhProducts || []).forEach(p => boldTerms.push(p.name || p.code));
-  (params.giftProducts || []).forEach(p => boldTerms.push(p.name || p.code));
-  (params.transferShowrooms || []).forEach(ts => {
-    boldTerms.push(ts.sourceShowroom);
-    (ts.products || []).forEach(p => boldTerms.push(p.name || p.code));
-  });
-  if (params.borrowProduct) boldTerms.push(params.borrowProduct);
-
-  Array.from(new Set(boldTerms.filter(t => t && String(t).trim().length >= 3)))
-    .sort((a, b) => String(b).length - String(a).length)
-    .forEach(term => {
-      const esc = escapeHtml(term).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      html = html.replace(new RegExp(esc, 'g'), m => `<b>${m}</b>`);
-    });
-
-  // 2. Các nhãn / câu quan trọng theo dòng
-  html = html
-    .replace(/^(Dear [^\n]*?,)$/gm, '<b>$1</b>')
-    .replace(/^(Lưu ý:)/gm, '<b>$1</b>')
-    .replace(/(Ngày cửa hàng cần nhận được:)/g, '<b>$1</b>')
-    .replace(/(Thao tác xuất: Xuất giá 0 đồng)/g, '<b>$1</b>')
-    .replace(/(Thông tin xuất hóa đơn:)/g, '<b>$1</b>')
-    .replace(/(Sản phẩm xuất:)/g, '<b>$1</b>')
-    .replace(/(Số lượng:)/g, '<b>$1</b>')
-    .replace(/(Ngày mượn:|Ngày trả:)/g, '<b>$1</b>')
-    .replace(/(KOC đến cửa hàng và xuất trình Căn cước công dân gốc)/g, '<b>$1</b>');
+  const html = escapeHtml(body);
 
   return `<div style="font-family: 'Times New Roman', Times, serif; font-size: large; line-height: 1.5; color: #000;">\n${html.replace(/\n/g, '<br/>')}\n</div>`;
 }

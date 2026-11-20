@@ -72,6 +72,13 @@ async function findStoreByAddressOrName(query) {
     if (qNorm.includes('le van viet') || qNorm.includes('lvv')) {
       if (s.name.includes('Lê Văn Việt') || s.email.includes('levanviet')) return s;
     }
+    if (qNorm.includes('quang trung') || qNorm.includes('634')) {
+      if (s.name.toLowerCase().includes('quang trung') || s.email.includes('quangtrung') || s.address.toLowerCase().includes('quang trung')) return s;
+    }
+    const streetNorm = addrNorm.split(',')[0].trim();
+    if (streetNorm && qNorm.includes(streetNorm)) {
+      return s;
+    }
     if (addrNorm && (qNorm.includes(addrNorm) || addrNorm.includes(qNorm))) {
       return s;
     }

@@ -1,0 +1,81 @@
+{
+  "bookingDate": "2026-11-11",
+  "pic": "Giáng Tuyết",
+  "koc": {
+    "name": "Dmy nè",
+    "fullName": "NGUYỄN THỊ THANH NGÂN",
+    "cccd": "079301014286",
+    "phone": "0939720264",
+    "email": "Nguyenthithanhngan1812@gmail.com",
+    "address": "83 đường số 3 phường thông tây hội, gò vấp",
+    "channels": {
+      "tiktok": "https://www.tiktok.com/@dmyne143",
+      "facebook": "https://www.facebook.com/share/19LhfShFFd/?mibextid=wwXIfr",
+      "instagram": ""
+    }
+  },
+  "cast": {
+    "amount": 0,
+    "type": "Net"
+  },
+  "products": [
+    {
+      "code": "71959-RGRGTTR-2",
+      "name": "Đồng hồ SAGA 71959-RGRGTTR-2",
+      "collection": "Saga Lunar",
+      "value": 8950000,
+      "brand": "Saga",
+      "origin": "Mỹ",
+      "movement": "Quartz (Pin)",
+      "warranty": "2 Năm"
+    }
+  ],
+  "sow": [
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 video (60-90s)",
+      "concept": "Review đồng hồ Saga",
+      "airDate": "25/11/2026"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 video (60-90s)",
+      "concept": "Review đồng hồ Saga",
+      "airDate": "28/11/2026"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 video (60-90s)",
+      "concept": "Review đồng hồ Saga",
+      "airDate": "29/11/2026"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 video (60-90s)",
+      "concept": "Review đồng hồ Saga",
+      "airDate": "10/01/2027"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 video (60-90s)",
+      "concept": "Review đồng hồ Saga",
+      "airDate": "12/01/2027"
+    }
+  ],
+  "sdha": "Trọn đời",
+  "showroom": {
+    "address": "634 Quang Trung, phường Thông Tây Hội, Thành phố Hồ Chí Minh",
+    "pickupDate": "12/11/2026"
+  },
+  "notes": []
+}

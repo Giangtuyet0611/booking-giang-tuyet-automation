@@ -53,7 +53,28 @@ async function createGmailDraft({ to, cc, subject, htmlBody }) {
   return res.data;
 }
 
+/**
+ * Cập nhật email nháp (Draft) đã tồn tại trong Gmail
+ */
+async function updateGmailDraft({ draftId, to, cc, subject, htmlBody }) {
+  const gmail = getGmailClient();
+  const raw = makeRawEmail({ to, cc, subject, htmlBody });
+
+  const res = await gmail.users.drafts.update({
+    userId: 'me',
+    id: draftId,
+    requestBody: {
+      message: {
+        raw
+      }
+    }
+  });
+
+  return res.data;
+}
+
 module.exports = {
   createGmailDraft,
+  updateGmailDraft,
   makeRawEmail
 };

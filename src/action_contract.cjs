@@ -330,6 +330,9 @@ async function generateSplittedContracts(params) {
     const channelFacebookLine = params.facebookUrl ? `Là đại diện của kênh Facebook: ${params.facebookUrl}` : '';
     const channelInstagramLine = params.instagramUrl ? `Là đại diện của kênh Instagram: ${params.instagramUrl}` : '';
 
+    const productCodeFormatted = pPrimary.code || '';
+    const productNameFormatted = productCodeFormatted ? `Đồng hồ SAGA ${productCodeFormatted}` : (pPrimary.name || '');
+
     const giftRequests = [
       // 1. Ngày ký
       { replaceAllText: { containsText: { text: 'ngày 01 tháng 10 năm 2026', matchCase: false }, replaceText: `ngày ${giftDate.day} tháng ${giftDate.month} năm ${giftDate.year}` } },
@@ -371,7 +374,7 @@ async function generateSplittedContracts(params) {
 
       // 7. Chi tiết sản phẩm chuẩn hóa
       { replaceAllText: { containsText: { text: '53578-LGSVLG-2', matchCase: false }, replaceText: pPrimary.code || '' } },
-      { replaceAllText: { containsText: { text: 'Đồng hồ SAGA 53578-LGSVLG-2', matchCase: false }, replaceText: pPrimary.name || '' } },
+      { replaceAllText: { containsText: { text: 'Đồng hồ SAGA 53578-LGSVLG-2', matchCase: false }, replaceText: productNameFormatted } },
       { replaceAllText: { containsText: { text: '- Thương hiệu: Saga - Số hiệu sản phẩm: 53578-LGSVLG-2  - Bộ sưu tập: Saga Stella Chance  - Xuất xứ: Mỹ - Máy: Quartz (Pin) - Bảo Hành Quốc Tế: 2 Năm', matchCase: false }, replaceText: productDetailText } },
       { replaceAllText: { containsText: { text: '6.950.000', matchCase: false }, replaceText: formatVND(groupTotalVal) } },
       { replaceAllText: { containsText: { text: 'Chín triệu năm trăm chín mươi nghìn Việt Nam Đồng', matchCase: false }, replaceText: pPrimary.valueText || `${formatVND(groupTotalVal)} VNĐ` } },

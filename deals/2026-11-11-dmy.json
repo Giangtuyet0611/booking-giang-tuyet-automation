@@ -1,0 +1,89 @@
+{
+  "bookingDate": "2026-11-11",
+  "pic": "Giáng Tuyết",
+  "koc": {
+    "name": "Dmy nè",
+    "fullName": "NGUYỄN THỊ THANH NGÂN",
+    "cccd": "079301014286",
+    "phone": "0939720264",
+    "email": "Nguyenthithanhngan1812@gmail.com",
+    "address": "83 đường số 3, phường Thông Tây Hội, quận Gò Vấp, TP. Hồ Chí Minh",
+    "channels": {
+      "tiktok": "https://www.tiktok.com/@dmyne143",
+      "facebook": "https://www.facebook.com/share/19LhfShFFd/?mibextid=wwXIfr",
+      "instagram": "không có"
+    }
+  },
+  "cast": {
+    "amount": 0,
+    "type": "Net"
+  },
+  "products": [
+    {
+      "code": "71959-RGRGTTR-2",
+      "name": "Đồng hồ SAGA 71959-RGRGTTR-2",
+      "collection": "Saga Lunar",
+      "value": 8950000,
+      "brand": "Saga",
+      "origin": "Mỹ",
+      "movement": "Quartz (Pin)",
+      "warranty": "2 Năm"
+    }
+  ],
+  "sow": [
+    {
+      "category": "Photo Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 bộ (7-8 ảnh)",
+      "concept": "Ảnh cưới Pre Wedding cô dâu và chú rể cận đồng hồ Saga",
+      "airDate": "25/11/2026"
+    },
+    {
+      "category": "Photo Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 bộ (7-8 ảnh)",
+      "concept": "Ảnh cưới Pre Wedding cô dâu và chú rể cận đồng hồ Saga",
+      "airDate": "28/11/2026"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 video (60-90s)",
+      "concept": "Kể chuyện hành trình yêu nhau, đánh dấu cột mốc bằng Saga",
+      "airDate": "29/11/2026"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 video (60-90s)",
+      "concept": "Chia sẻ câu chuyện đeo đồng hồ ngày cưới, review về đồng hồ",
+      "airDate": "10/01/2027",
+      "note": "Gửi kịch bản 15/12/2026; Gửi video demo ngày 05/01/2027"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 video (60-90s)",
+      "concept": "Chia sẻ về dự án Cô dâu Saga của brand Saga Vietnam - Tặng đồng hồ cưới miễn phí",
+      "airDate": "12/01/2027",
+      "note": "Gửi kịch bản 18/12/2026; Gửi video demo ngày 08/01/2027"
+    }
+  ],
+  "sdha": "Trọn đời",
+  "showroom": {
+    "name": "Showroom Quang Trung (049QT1)",
+    "address": "634 Quang Trung, phường Thông Tây Hội, quận Gò Vấp, TP. Hồ Chí Minh",
+    "pickupDate": "12/11/2026"
+  },
+  "notes": [
+    "Voucher 15% dưới phần bình luận của Facebook và TikTok",
+    "Gắn link sản phẩm ở phần bình luận Facebook",
+    "Gắn thẻ, tag brand @Saga Vietnam ở Reels/Story Facebook"
+  ]
+}
+
