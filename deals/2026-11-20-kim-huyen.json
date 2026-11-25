@@ -1,0 +1,85 @@
+{
+  "bookingDate": "2026-11-20",
+  "pic": "Giáng Tuyết",
+  "koc": {
+    "name": "Kim Huyền",
+    "fullName": "TRẦN THỊ KIM HUYỀN",
+    "cccd": "079197006000",
+    "phone": "0927171027",
+    "email": "tranthikimhuyen100797@gmail.com",
+    "address": "36/1a đường 212 phường Phước Long, HCM",
+    "channels": {
+      "instagram": "https://www.instagram.com/gnoahaucneyuh",
+      "facebook": "https://www.facebook.com/share/19jDDWJpC2/",
+      "tiktok": "https://www.tiktok.com/@tuilafpofnef"
+    }
+  },
+  "products": [
+    {
+      "code": "71825-SVMWSV-3",
+      "name": "Đồng hồ SAGA 71825-SVMWSV-3",
+      "collection": "Saga Charm",
+      "value": 8140000,
+      "brand": "Saga",
+      "origin": "Mỹ",
+      "movement": "Quartz (Pin)",
+      "warranty": "2 Năm",
+      "source": "Chờ xác nhận nguồn xuất"
+    }
+  ],
+  "showroom": {
+    "address": "79 Lê Văn Việt, P.Hiệp Phú, Q.9, TP.Thủ Đức",
+    "pickupDate": "15/02/2027"
+  },
+  "sdha": "Trọn đời",
+  "sow": [
+    {
+      "category": "Photo Post",
+      "platform": "Tiktok",
+      "reup": "Facebook, Instagram",
+      "qty": "01 bộ (7-8 ảnh)",
+      "concept": "Bộ ảnh Pre-Wedding 1 cô dâu và chú rể cận đồng hồ Saga",
+      "airDate": "20/03/2027"
+    },
+    {
+      "category": "Photo Post",
+      "platform": "Tiktok",
+      "reup": "Facebook, Instagram",
+      "qty": "01 bộ (7-8 ảnh)",
+      "concept": "Bộ ảnh Pre-Wedding 2 cô dâu và chú rể cận đồng hồ Saga",
+      "airDate": "22/03/2027"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook, Instagram",
+      "qty": "01 video (60-90s)",
+      "concept": "Kể chuyện hành trình yêu nhau, đánh dấu cột mốc về chung nhà bằng đồng hồ Saga",
+      "airDate": "25/03/2027"
+    },
+    {
+      "category": "Photo Post",
+      "platform": "Tiktok",
+      "reup": "Facebook, Instagram",
+      "qty": "01 bộ (7-8 ảnh)",
+      "concept": "Bộ ảnh đám hỏi cô dâu và chú rể cận đồng hồ Saga",
+      "airDate": "15/05/2027"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook, Instagram",
+      "qty": "01 video (60-90s)",
+      "concept": "Chia sẻ câu chuyện đeo đồng hồ ngày cưới, review thiết kế và trải nghiệm đeo Saga",
+      "airDate": "17/05/2027"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook, Instagram",
+      "qty": "01 video (60-90s)",
+      "concept": "Chia sẻ về dự án Cô dâu Saga của brand Saga Vietnam - Tặng đồng hồ cưới miễn phí",
+      "airDate": "23/05/2027"
+    }
+  ]
+}

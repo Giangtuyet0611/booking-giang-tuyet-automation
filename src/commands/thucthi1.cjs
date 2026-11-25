@@ -19,7 +19,7 @@ function normalize(s) {
 }
 
 async function handleThucThi1Command(deal, options = {}) {
-  const { docs, sheets, config } = getClients();
+  const { drive, docs, sheets, config } = getClients();
 
   console.log(`\n============================================================`);
   console.log(`TIẾN HÀNH THỰC THI 1: KOC ${deal.koc.name}`);
@@ -34,12 +34,45 @@ async function handleThucThi1Command(deal, options = {}) {
   let productCode = deal.products && deal.products[0] ? deal.products[0].code : '';
   let totalPrice = deal.products ? deal.products.reduce((s, p) => s + (p.value || 0), 0) : 0;
 
+  let contractId = options.docId || deal.docId || null;
   const lastContractPath = 'd:/Booking/last_contract_result.json';
-  if (fs.existsSync(lastContractPath)) {
+  if (!contractId && fs.existsSync(lastContractPath)) {
     try {
       const lastContract = JSON.parse(fs.readFileSync(lastContractPath, 'utf8'));
-      if (lastContract.contracts && lastContract.contracts[0]) {
-        const contractId = lastContract.contracts[0].id;
+      const sameKoc = normalize(lastContract?.koc?.kocName) === normalize(deal.koc.name);
+      if (sameKoc && lastContract.contracts && lastContract.contracts[0]) {
+        contractId = lastContract.contracts[0].id;
+      }
+    } catch (_) {}
+  }
+
+  if (!contractId && deal.bookingDate) {
+    try {
+      const monthNum = parseInt(deal.bookingDate.split('-')[1], 10);
+      const monthRes = await drive.files.list({
+        q: `'${config.CONTRACT_TARGET_ROOT_FOLDER_ID}' in parents and name = 'Tháng ${monthNum}' and mimeType = 'application/vnd.google-apps.folder' and trashed = false`,
+        fields: 'files(id)',
+        supportsAllDrives: true,
+        includeItemsFromAllDrives: true
+      });
+      const monthFolderId = monthRes.data.files?.[0]?.id;
+      if (monthFolderId) {
+        const docSearch = await drive.files.list({
+          q: `'${monthFolderId}' in parents and name contains '${deal.koc.name.replace(/'/g, "\\'")}' and mimeType = 'application/vnd.google-apps.document' and trashed = false`,
+          fields: 'files(id, name)',
+          supportsAllDrives: true,
+          includeItemsFromAllDrives: true
+        });
+        if (docSearch.data.files && docSearch.data.files[0]) {
+          contractId = docSearch.data.files[0].id;
+        }
+      }
+    } catch (_) {}
+  }
+
+  if (contractId) {
+    try {
+      {
         console.log(`1. Quét trạng thái thời gian thực từ Google Doc (${contractId})...`);
         const docRes = await docs.documents.get({ documentId: contractId });
         let fullText = '';
@@ -60,14 +93,17 @@ async function handleThucThi1Command(deal, options = {}) {
         }
         extract(docRes.data.body.content);
 
-        const benBMatch = fullText.match(/BÊN B:\s*([^\n]+)/i);
+        const benBBlockMatch = fullText.match(/BÊN B:[\s\S]*?(?=ĐIỀU 1:|$)/i);
+        const benBBlock = benBBlockMatch ? benBBlockMatch[0] : fullText;
+
+        const benBMatch = benBBlock.match(/BÊN B:\s*([^\n]+)/i);
         if (benBMatch) kocFullName = benBMatch[1].trim();
 
-        const cccdMatch = fullText.match(/Số căn cước công dân \(CCCD\):\s*([0-9]+)/i);
+        const cccdMatch = benBBlock.match(/Số căn cước công dân \(CCCD\):\s*([0-9]+)/i);
         if (cccdMatch) kocCccd = cccdMatch[1].trim();
 
-        const sdtMatch = fullText.match(/Số điện thoại:\s*([0-9]+)/i);
-        if (sdtMatch) kocPhone = sdtMatch[1].trim();
+        const sdtMatch = benBBlock.match(/Số điện thoại:\s*([0-9.\s]+)/i);
+        if (sdtMatch) kocPhone = sdtMatch[1].replace(/\s+/g, '').trim();
 
         const showroomMatch = fullText.match(/Tại Showroom Đồng Hồ Hải Triều:\s*([^\n]+)/i);
         if (showroomMatch) targetShowroomAddress = showroomMatch[1].trim();

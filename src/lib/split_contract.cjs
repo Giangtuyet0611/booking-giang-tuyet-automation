@@ -508,8 +508,9 @@ async function handleSplitContract({ drive, docs, config, deal, monthFolderId, n
 
   const castContract = await createCastContract({ drive, docs, config, deal, kocFolderId, numberToVietnameseWords, options });
 
-  // Chia sản phẩm thành các nhóm <= 20.000.000 VNĐ
-  const productGroups = splitProductsByMaxValue(deal.products, MAX_GIFT_CONTRACT_VALUE);
+  // Chỉ tách sản phẩm TẶNG (sản phẩm mượn tích hợp trong hợp đồng chính, không tách riêng)
+  const giftOnlyProducts = (deal.products || []).filter(p => !p.isLoan && p.type !== 'loan');
+  const productGroups = splitProductsByMaxValue(giftOnlyProducts, MAX_GIFT_CONTRACT_VALUE);
   const giftSows = deal.sow.filter(s => s.contractType === 'Gift');
 
   const giftContracts = [];

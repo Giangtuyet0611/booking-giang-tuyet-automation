@@ -54,7 +54,7 @@ function validateDeal(raw) {
   // 4. Products & Cast
   deal.products = deal.products || [];
   deal.products.forEach(p => {
-    if (!p.code) errors.push('Sản phẩm tặng thiếu mã sản phẩm ("code")');
+    if (!p.code && !deal.allowEmptyProduct) errors.push('Sản phẩm tặng thiếu mã sản phẩm ("code")');
     p.brand = p.brand || 'Saga';
     p.origin = p.origin || 'Mỹ';
     p.movement = p.movement || 'Quartz (Pin)';

@@ -1,0 +1,76 @@
+{
+  "bookingDate": "2026-11-20",
+  "pic": "Giáng Tuyết",
+  "koc": {
+    "name": "Một chút của Mín Thư",
+    "fullName": "NGUYỄN HOÀNG MINH THƯ",
+    "cccd": "079197008883",
+    "phone": "0909.273.581",
+    "email": "thunhm0908@gmail.com",
+    "address": "144 Dương Đình Hội, Phước Long, TP. HCM",
+    "channels": {
+      "facebook": "https://www.facebook.com/share/16NWsPdssQ7/?mibextid=wwXIfr",
+      "tiktok": "https://www.tiktok.com/@motchutthudenn"
+    }
+  },
+  "products": [
+    {
+      "code": "72109-SVMWSV-2",
+      "name": "Đồng hồ SAGA 72109-SVMWSV-2",
+      "collection": "Saga Stella",
+      "value": 8030000,
+      "brand": "Saga",
+      "origin": "Mỹ",
+      "movement": "Quartz (Pin)",
+      "warranty": "2 Năm",
+      "source": "Showroom 156A Trần Quang Khải"
+    }
+  ],
+  "showroom": {
+    "address": "79 Lê Văn Việt, P.Hiệp Phú, Q.9, TP.Thủ Đức",
+    "pickupDate": "23/11/2026"
+  },
+  "sdha": "Trọn đời",
+  "sow": [
+    {
+      "category": "Photo Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 bộ (7-8 ảnh)",
+      "concept": "Bộ ảnh lễ rước dâu mặc áo dài đỏ cô dâu và chú rể cận đồng hồ Saga",
+      "airDate": "10/01/2027"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 video (45-90s)",
+      "concept": "Chia sẻ câu chuyện đeo đồng hồ ngày cưới, review thiết kế và trải nghiệm đeo Saga",
+      "airDate": "15/01/2027"
+    },
+    {
+      "category": "Photo Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 bộ (7-8 ảnh)",
+      "concept": "Bộ ảnh tại nhà hàng cô dâu và chú rể cận đồng hồ Saga",
+      "airDate": "17/01/2027"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 video ngắn",
+      "concept": "Hội bạn thân tặng cô dâu đồng hồ trong ngày cưới (Trending)",
+      "airDate": "19/01/2027"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook",
+      "qty": "01 video (45-60s)",
+      "concept": "Chia sẻ về dự án Cô dâu Saga của brand Saga Vietnam - Tặng đồng hồ cưới miễn phí",
+      "airDate": "23/01/2027"
+    }
+  ]
+}

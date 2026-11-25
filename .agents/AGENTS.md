@@ -81,6 +81,7 @@ Mọi sản phẩm đồng hồ khi đưa vào hợp đồng (Điều 2.1) hoặ
 - Xuất xứ: Mỹ
 - Máy: Quartz (Pin)
 - Bảo Hành Quốc Tế: 2 Năm
+- **Quy tắc bảng sản phẩm (Điều 2.1)**: Đối với hợp đồng có nhiều sản phẩm, **mỗi sản phẩm BẮT BUỘC nằm trên 1 hàng riêng biệt** trong bảng (tuyệt đối không gộp nhiều sản phẩm vào chung 1 hàng).
 
 ---
 
@@ -118,6 +119,7 @@ Mọi sản phẩm đồng hồ khi đưa vào hợp đồng (Điều 2.1) hoặ
   - Riêng mục xuất tại showroom người nhận thì ghi **TẤT CẢ** các sản phẩm KOC nhận.
 - **Tự động đẩy vào Thư nháp (Gmail Draft)**: Sau khi soạn xong, hệ thống đẩy thẳng vào mục Thư nháp (Drafts) của tài khoản Gmail để người dùng chỉ cần kiểm tra và bấm gửi. Nếu đã có draft trước đó cho cùng KOC và cần sửa, cập nhật trực tiếp trên draft đó thay vì tạo thêm draft trùng.
 - **Định dạng & Nội dung chuẩn**: Giữ nguyên font (`Times New Roman`, cỡ Large) và format xuống dòng, **KHÔNG in đậm (no bold)**. Câu thao tác xuất dùng đúng cụm: `"bao gồm hộp Saga, túi giấy và BOM đi kèm không xuất gói bảo hành mở rộng của Hải Triều"`.
+- **Thông tin KOC trong mail**: Số điện thoại liên hệ trong Gmail Draft **BẮT BUỘC là số điện thoại của Bên B (KOC)**, tuyệt đối không lấy nhầm số điện thoại của Bên A (Công ty TNHH Hải Triều Việt Nam).
 
 ---
 
@@ -136,6 +138,7 @@ Mọi sản phẩm đồng hồ khi đưa vào hợp đồng (Điều 2.1) hoặ
 - Khi một deal được tách thành nhiều hợp đồng (01 HĐ Thương mại trả Cast + N HĐ Trao đổi tặng sản phẩm):
   - **Mỗi hợp đồng CHỈ CHỨA DUY NHẤT hạng mục SOW tương ứng** được phân bổ cho nó (cả ở Bảng SOW Điều 1, quy chuẩn Điều 1.1/1.2, và câu đăng tải Điều 1.3).
   - **Tuyệt đối loại bỏ toàn bộ** các hàng hoặc câu SOW thuộc về hợp đồng khác, hoặc còn sót lại từ mẫu template, không để bất kỳ SOW nào bị dư thừa hay trùng lặp chéo giữa các hợp đồng.
+- **Sản phẩm mượn**: Nếu deal có **sản phẩm mượn**, **tích hợp trực tiếp vào hợp đồng chính**, **KHÔNG tách thành 1 hợp đồng riêng**. Chỉ tách hợp đồng đối với Cast và các gói **sản phẩm tặng** (chia $\le 20.000.000$ VNĐ/HĐ).
 
 ---
 
@@ -143,7 +146,7 @@ Mọi sản phẩm đồng hồ khi đưa vào hợp đồng (Điều 2.1) hoặ
 - Khi nhận lệnh "thực thi 1", hệ thống **KHÔNG sử dụng dữ liệu cũ hay cache bộ nhớ**, mà **BẮT BUỘC truy cập trực tiếp link Google Docs của các hợp đồng ở trạng thái thời gian thực mới nhất (Live State)** để bóc tách:
   - Showroom nhận hàng và ngày nhận hàng dự kiến (Điều 2.2).
   - Danh sách mã sản phẩm và tên sản phẩm (Điều 2.1).
-  - Thông tin cá nhân KOC (Họ tên, CCCD, SĐT).
+  - Thông tin cá nhân KOC **thuộc khối BÊN B** (Họ tên, CCCD, SĐT — chỉ bóc tách trong phạm vi từ `BÊN B:` đến `ĐIỀU 1:`, không lấy nhầm thông tin Bên A).
   - Chi phí Cast thực nhận và các đợt thanh toán.
 - Đảm bảo mọi chỉnh sửa thủ công của người dùng trực tiếp trên link Google Docs đều được hệ thống nhận diện và phản ánh chính xác 100%.
 

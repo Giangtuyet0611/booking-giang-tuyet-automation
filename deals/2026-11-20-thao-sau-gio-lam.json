@@ -1,0 +1,77 @@
+{
+  "bookingDate": "2026-11-20",
+  "pic": "Giáng Tuyết",
+  "koc": {
+    "name": "Thảo Sau Giờ Làm",
+    "fullName": "NGUYỄN THỊ THẢO",
+    "cccd": "027300001830",
+    "phone": "0339386468",
+    "email": "nguyenthithaobn0602@gmail.com",
+    "address": "TDP Dương Lôi, phường Từ Sơn, thành phố Bắc Ninh",
+    "channels": {
+      "instagram": "https://www.instagram.com/__grassyy__",
+      "facebook": "https://www.facebook.com/share/18qMsTRvFg/?mibextid=wwXIfr",
+      "tiktok": "https://www.tiktok.com/@thao.saugiolam"
+    }
+  },
+  "products": [
+    {
+      "code": "53555-RGMWRG-2",
+      "name": "Đồng hồ SAGA 53555-RGMWRG-2",
+      "collection": "Saga Stella",
+      "value": 6830000,
+      "brand": "Saga",
+      "origin": "Mỹ",
+      "movement": "Quartz (Pin)",
+      "warranty": "2 Năm",
+      "source": "Showroom Xã Đàn"
+    }
+  ],
+  "showroom": {
+    "address": "Xã Đàn",
+    "pickupDate": "21/11/2026"
+  },
+  "sdha": "Trọn đời",
+  "sow": [
+    {
+      "category": "Photo Post",
+      "platform": "Tiktok",
+      "reup": "Facebook, Instagram",
+      "qty": "01 bộ (7-8 ảnh)",
+      "concept": "Bộ ảnh lễ ăn hỏi cô dâu và chú rể cận đồng hồ Saga",
+      "airDate": "10/12/2026"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook, Instagram",
+      "qty": "01 video (45-90s)",
+      "concept": "Chia sẻ câu chuyện đeo đồng hồ ngày cưới, review thiết kế và trải nghiệm đeo Saga",
+      "airDate": "12/12/2026"
+    },
+    {
+      "category": "Photo Post",
+      "platform": "Tiktok",
+      "reup": "Facebook, Instagram",
+      "qty": "01 bộ (7-8 ảnh)",
+      "concept": "Bộ ảnh lễ vu quy cô dâu và chú rể cận đồng hồ Saga",
+      "airDate": "15/12/2026"
+    },
+    {
+      "category": "Video Post",
+      "platform": "Tiktok",
+      "reup": "Facebook, Instagram",
+      "qty": "01 video (45-60s)",
+      "concept": "Chia sẻ về dự án Cô dâu Saga của brand Saga Vietnam - Tặng đồng hồ cưới miễn phí",
+      "airDate": "20/12/2026"
+    },
+    {
+      "category": "Photo Post",
+      "platform": "Tiktok",
+      "reup": "Facebook, Instagram",
+      "qty": "01 bộ (7-8 ảnh)",
+      "concept": "Bộ ảnh lễ thành hôn cô dâu và chú rể cận đồng hồ Saga",
+      "airDate": "22/12/2026"
+    }
+  ]
+}
