@@ -5,8 +5,8 @@ Tài liệu này định nghĩa 11 nguyên tắc vận hành cốt lõi, bất b
 ---
 
 ### 1. LỆNH KÍCH HOẠT
-- **"tiến hành"** (hoặc khi người dùng gửi mẫu thông tin KOC mới): Thực hiện bước **Làm hợp đồng** (bóc tách deal, kiểm tra split HĐ Cast / HĐ Tặng SP, định dạng SOW, bảng chi phí thuế TNCN, tạo thư mục KOC và sinh các tài liệu hợp đồng).
-- **"thực thi 1"**: Thực hiện bước **Thực thi 1** (quét trạng thái Google Docs mới nhất, tra cứu email showroom, tạo Thư nháp trong Gmail, sinh Phiếu ĐNTT giá trị Net, cập nhật trạng thái chốt deal trên Sheet Data KOC, xem Mục 3.1).
+- **"tiến hành"** (hoặc khi người dùng gửi mẫu thông tin KOC mới): Thực hiện bước **Làm hợp đồng** (bóc tách deal, kiểm tra split HĐ Cast / HĐ Tặng SP, định dạng SOW, bảng chi phí thuế TNCN, tạo thư mục KOC, sinh các tài liệu hợp đồng **và cập nhật thông tin vào Sheet Data KOC**, xem Mục 3.1).
+- **"thực thi 1"**: Thực hiện bước **Thực thi 1** (quét trạng thái Google Docs mới nhất, tra cứu email showroom, tạo Thư nháp trong Gmail, sinh Phiếu ĐNTT giá trị Net).
 
 ---
 
@@ -35,11 +35,15 @@ Tài liệu này định nghĩa 11 nguyên tắc vận hành cốt lõi, bất b
   2. Chỉ cập nhật khi cột `Người phụ trách` của dòng đó đúng là **người phụ trách hiện tại** (mặc định `Giáng Tuyết`; nếu người khác sử dụng và nhắn "tôi là [Tên]" thì áp dụng tên đó từ lúc đó đến khi họ báo đổi; nếu chưa rõ ai đang dùng thì phải hỏi trước khi ghi). Nếu người phụ trách khác, không tìm thấy, hoặc trùng nhiều dòng: KHÔNG ghi, báo lại để người dùng quyết định.
   3. Khi khớp, điền các cột sau:
      - `Trạng thái`: `Đã chốt`
+     - `Tên KOC / Nghệ danh`: Họ tên đầy đủ của Bên B theo hợp đồng
+     - `Khu vực`: Tỉnh/Thành phố suy ra từ địa chỉ của KOC (ví dụ: `TP. HCM`, `Hà Nội`, `Bắc Ninh`, `Đồng Nai`...)
+     - `Kênh TikTok`, `Link Facebook`, `Kênh Instagram`, `Kênh Youtube`: điền link kênh tương ứng nếu có; nếu không có điền `"-"`
      - `Số sản phẩm tặng`: số lượng sản phẩm tặng
      - `Mã sản phẩm`: các mã nối nhau bằng ` ; ` (có khoảng trắng trước và sau dấu chấm phẩy), ví dụ `54510-GPGRGP-2 ; 53578-LGCRCR-2`
      - `Tổng chi phí sản phẩm`: tổng giá trị các sản phẩm tặng
      - `Tổng cast`: chi phí cast **tiền mặt** (số Net thực nhận theo hợp đồng)
-- Ghi đè chỉ được phép trên các ô thuộc 5 cột trên của đúng dòng KOC A.
+     - **Quy tắc ô trống**: Trên hàng của KOC đó, **tất cả các cột nhập liệu không có nội dung đều điền dấu `"-"`** (tuyệt đối **KHÔNG** ghi đè các cột có công thức hoặc có ghi chú `(Auto)` như `STT (Auto)`, `Liên hệ lần thứ (Auto)`, `Cost sản phẩm (Auto)`, `Tổng chi phí sau deal`).
+- Ghi đè chỉ được phép trên các ô nhập liệu (không có công thức/`(Auto)`) thuộc đúng dòng KOC A.
 
 #### 3.2. Sheet Report - báo cáo materials & post air
 - Spreadsheet: `1KiSpOuGezhePNSQDPx-xz-_KxfzRzltpR-gI1aQdD3I`, Tab `Report Saga` (gid `2134196678`).

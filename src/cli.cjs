@@ -20,6 +20,8 @@ const { verifyContract } = require('./commands/verify_contract.cjs');
 const { handleNewDealCommand } = require('./commands/new_deal.cjs');
 const { handleMediaCommand } = require('./commands/media.cjs');
 const { syncReportMaterials } = require('./commands/report_materials.cjs');
+const { handleReportPostCommand } = require('./commands/report_post.cjs');
+const { handleExtractContactsCommand } = require('./commands/extract_contacts.cjs');
 const { inspectReportSheets } = require('./commands/inspect_report.cjs');
 const { getClients } = require('./lib/google.cjs');
 
@@ -206,8 +208,28 @@ async function main() {
         break;
       }
 
+      case 'report-post': {
+        if (!args.input) {
+          console.error('❌ Lỗi: Thiếu tham số --input <file_report.json>');
+          process.exit(1);
+        }
+        const reportPayload = JSON.parse(fs.readFileSync(args.input, 'utf8'));
+        await handleReportPostCommand(reportPayload, { dryRun: Boolean(args['dry-run']) });
+        break;
+      }
+
       case 'inspect-report': {
         await inspectReportSheets(args.query || args._[1]);
+        break;
+      }
+
+      case 'extract-contacts': {
+        if (!args.input) {
+          console.error('❌ Lỗi: Thiếu tham số --input <list.json>');
+          process.exit(1);
+        }
+        const kocList = JSON.parse(fs.readFileSync(args.input, 'utf8'));
+        await handleExtractContactsCommand(kocList);
         break;
       }
 

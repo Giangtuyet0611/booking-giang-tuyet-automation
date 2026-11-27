@@ -196,116 +196,11 @@ async function handleThucThi1Command(deal, options = {}) {
     console.log(`-> [DRY RUN] Đã tạo nội dung Gmail Draft (không đẩy thực tế): Tiêu đề: "${subject}"`);
   }
 
-  // 4. Cập nhật Sheet Data KOC
-  console.log(`4. Cập nhật Sheet Data KOC (Tab Data KOC (11/2026))...`);
-  const spreadsheetId = config.SPREADSHEET_DATA_KOC_ID;
-  const tabName = config.TAB_DATA_KOC || 'Data KOC (11/2026)';
-
-  const sheetRes = await sheets.spreadsheets.values.get({
-    spreadsheetId,
-    range: `'${tabName}'!A1:Z500`
-  });
-
-  const rows = sheetRes.data.values || [];
-  let headerRowIdx = 0;
-  let header = rows[0] || [];
-  for (let i = 0; i < Math.min(rows.length, 15); i++) {
-    const rNorm = (rows[i] || []).map(normalize);
-    if (rNorm.some(c => c.includes('tên kênh')) && rNorm.some(c => c.includes('người phụ trách'))) {
-      headerRowIdx = i;
-      header = rows[i];
-      break;
-    }
-  }
-
-  const colMap = {};
-  header.forEach((h, idx) => {
-    const norm = normalize(h);
-    if (norm.includes('người phụ trách')) colMap.pic = idx;
-    if (norm.includes('tên kênh')) colMap.channelName = idx;
-    if (norm.includes('trạng thái')) colMap.status = idx;
-    if (norm.includes('số sản phẩm tặng')) colMap.giftQty = idx;
-    if (norm.includes('mã sản phẩm')) colMap.productCode = idx;
-    if (norm.includes('tổng chi phí sản phẩm')) colMap.totalProductCost = idx;
-    if (norm.includes('tổng cast')) colMap.totalCast = idx;
-  });
-
-  const requiredCols = ['pic', 'channelName', 'status', 'giftQty', 'productCode', 'totalProductCost', 'totalCast'];
-  for (const rc of requiredCols) {
-    if (colMap[rc] === undefined) {
-      throw new Error(`Không tìm thấy cột bắt buộc: "${rc}" trên Sheet Data KOC!`);
-    }
-  }
-
-  // Tìm KOC row (ưu tiên khớp chính xác hoặc channelVal chứa kocSearchNorm; không để tên ngắn như "Đan" khớp nhầm "Đan Quỳnh")
-  const kocSearchNorm = normalize(deal.koc.name).replace(/^@/, '');
-  const expectedPicNorm = normalize(deal.pic || 'Giáng Tuyết');
-  const matchedIndices = [];
-  for (let r = headerRowIdx + 1; r < rows.length; r++) {
-    const row = rows[r];
-    const channelVal = normalize(row[colMap.channelName] || '').replace(/^@/, '');
-    if (!channelVal) continue;
-    if (channelVal === kocSearchNorm || channelVal.includes(kocSearchNorm)) {
-      matchedIndices.push(r);
-    }
-  }
-
-  let targetRowIdx = -1;
-  if (matchedIndices.length === 1) {
-    targetRowIdx = matchedIndices[0];
-  } else if (matchedIndices.length > 1) {
-    const picMatched = matchedIndices.filter(r => normalize(rows[r][colMap.pic] || '').includes(expectedPicNorm));
-    if (picMatched.length === 1) {
-      targetRowIdx = picMatched[0];
-    } else {
-      throw new Error(`Tìm thấy nhiều dòng (${matchedIndices.map(r => r + 1).join(', ')}) khớp KOC "${deal.koc.name}" trên Sheet Data KOC. Vui lòng kiểm tra lại!`);
-    }
-  }
-
-  if (targetRowIdx === -1) {
-    throw new Error(`Không tìm thấy dòng của KOC "${deal.koc.name}" trên Sheet Data KOC!`);
-  }
-
-  const targetRowNumber = targetRowIdx + 1;
-  const matchedRow = rows[targetRowIdx];
-  const picVal = normalize(matchedRow[colMap.pic] || '');
-  console.log(`-> Khớp dòng KOC tại Row ${targetRowNumber} (Người phụ trách: "${matchedRow[colMap.pic]}")`);
-
-  // Kiểm tra người phụ trách
-  if (!picVal.includes('tuyết') && !picVal.includes(expectedPicNorm)) {
-    throw new Error(`Người phụ trách trên Sheet ("${matchedRow[colMap.pic]}") không khớp với "${deal.pic || 'Giáng Tuyết'}". Vui lòng kiểm tra lại!`);
-  }
-
-  const castAmount = deal.cast?.amount || 0;
-  const totalCostVal = typeof totalPrice === 'number' ? totalPrice.toLocaleString('vi-VN') : totalPrice;
-
-  const updates = [
-    { range: `'${tabName}'!${colIndexToA1(colMap.status)}${targetRowNumber}`, values: [['Đã chốt']] },
-    { range: `'${tabName}'!${colIndexToA1(colMap.giftQty)}${targetRowNumber}`, values: [[deal.products?.length || 1]] },
-    { range: `'${tabName}'!${colIndexToA1(colMap.productCode)}${targetRowNumber}`, values: [[productCode]] },
-    { range: `'${tabName}'!${colIndexToA1(colMap.totalProductCost)}${targetRowNumber}`, values: [[totalCostVal]] },
-    { range: `'${tabName}'!${colIndexToA1(colMap.totalCast)}${targetRowNumber}`, values: [[castAmount]] }
-  ];
-
-  if (!options.dryRun) {
-    await sheets.spreadsheets.values.batchUpdate({
-      spreadsheetId,
-      requestBody: {
-        valueInputOption: 'USER_ENTERED',
-        data: updates
-      }
-    });
-    console.log(`-> ĐÃ CẬP NHẬT THÀNH CÔNG SHEET DATA KOC TẠI ROW ${targetRowNumber}!`);
-  } else {
-    console.log(`-> [DRY RUN] Sẽ cập nhật Sheet Data KOC tại Row ${targetRowNumber}: Trạng thái = Đã chốt, Mã = ${productCode}, Chi phí = ${totalCostVal}, Cast = ${castAmount}`);
-  }
-
   const result = {
     koc: deal.koc.name,
     gmailDraftId: draftId,
     subject,
     showroom: showroomName,
-    sheetRow: targetRowNumber,
     isDryRun: Boolean(options.dryRun)
   };
 

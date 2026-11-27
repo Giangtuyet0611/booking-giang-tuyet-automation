@@ -1,6 +1,7 @@
 const fs = require('fs');
 const { getOrCreateSubfolder } = require('../utils/drive_folder.util.cjs');
 const { verifyContract } = require('../commands/verify_contract.cjs');
+const { syncDataKocOnContract } = require('./data_koc_sync.cjs');
 
 const MAX_GIFT_CONTRACT_VALUE = 20000000; // Không quá 20 triệu VNĐ / 1 HĐ Tặng SP
 
@@ -553,6 +554,7 @@ async function handleSplitContract({ drive, docs, config, deal, monthFolderId, n
   };
 
   fs.writeFileSync('d:/Booking/last_contract_result.json', JSON.stringify(contractResult, null, 2), 'utf8');
+  await syncDataKocOnContract(deal, options);
   return contractResult;
 }
 

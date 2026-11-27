@@ -3,6 +3,7 @@ const { getClients } = require('../lib/google.cjs');
 const { getOrCreateSubfolder } = require('../utils/drive_folder.util.cjs');
 const { verifyContract } = require('./verify_contract.cjs');
 const { handleSplitContract } = require('../lib/split_contract.cjs');
+const { syncDataKocOnContract } = require('../lib/data_koc_sync.cjs');
 
 function numberToVietnameseWords(num) {
   const digits = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
@@ -564,6 +565,9 @@ async function handleContractCommand(deal, options = {}) {
   };
 
   fs.writeFileSync('d:/Booking/last_contract_result.json', JSON.stringify(contractResult, null, 2), 'utf8');
+
+  // 6. Cập nhật Sheet Data KOC ngay tại bước Làm hợp đồng (Mục 3.1)
+  await syncDataKocOnContract(deal, options);
 
   console.log(`\n🎉 HOÀN THÀNH TẠO HỢP ĐỒNG:`);
   console.log(`👉 Link: https://docs.google.com/document/d/${docId}/edit`);
