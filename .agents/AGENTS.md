@@ -136,7 +136,7 @@ Mọi sản phẩm đồng hồ khi đưa vào hợp đồng (Điều 2.1) hoặ
     - **KHÔNG đánh số thứ tự (1), (2)...**: Nếu 1 bạn có nhiều hợp đồng, các hợp đồng sẽ được giãn cách ra các ngày ký khác nhau ($\pm 3$ ngày so với ngày yêu cầu tạo hợp đồng), do đó ngày tháng `YYYY-MM-DD` ở đầu tên file tự động phân biệt các hợp đồng mà không cần đánh số.
   - Phiếu ĐNTT: `YYYY-MM-DD - Phiếu đề nghị thanh toán cast KOC [Tên KOC]` (hoặc đợt 1 / đợt 2 nếu chia đợt).
 
----
+
 
 ### 10. PHÂN BỔ SOW ĐỘC QUYỀN KHI TÁCH HỢP ĐỒNG (CAST & GIFT)
 - Khi một deal được tách thành nhiều hợp đồng (01 HĐ Thương mại trả Cast + N HĐ Trao đổi tặng sản phẩm):
